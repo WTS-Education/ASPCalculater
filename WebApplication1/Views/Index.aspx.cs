@@ -31,8 +31,8 @@ namespace WebApplication1
                 if (sdr.Read())
                 {
                     //ログイン成功
-                    String userName = sdr["USER_NAME"].ToString();
-                    String userId = sdr["USER_ID"].ToString();
+                    string userName = sdr["USER_NAME"].ToString();
+                    string userId = sdr["USER_ID"].ToString();
                     Session["userName"] = userName;
                     Session["userId"] = userId;
                     Server.Transfer("~/Views/ToDo.aspx");

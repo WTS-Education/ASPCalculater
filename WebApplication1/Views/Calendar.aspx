@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Calendar.aspx.cs" Inherits="WebApplication1.WebForm3" %>
 <%@ Import Namespace="System"%>
 <%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="WebApplication1" %>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -66,17 +67,18 @@
                                     <button type="submit" runat="server" name="selectedDay" value="<%= day %>" class="schedule_btn" onserverclick="Scadd_Click">
 								        <asp:Image ID="Image2" ImageUrl="~/Contents/image/scadd.gif" runat="server" />
 							        </button>
-                                    <asp:ImageButton ID="scadd" runat="server" ImageUrl="~/Contents/image/scadd.gif" OnCommand="Scadd_command" CommandArgument="<%= day %>" />
 							    </span>
                                 <%= day %>
                                 <br><br>
-                                <%  int[] startTime = (int[])Session["startTime"];
-                                    int[] endTime = (int[])Session["endTime"];
-                                    if (yearAndMonth[0] == startTime[0] && yearAndMonth[1] == startTime[1] && day == startTime[2] ) {%>
-                                <a href="Scheduling.aspx?id=<%= (int)Session["schedule_id"] %>">
-                                    <%= startTime[3] %>:<%= startTime[4] %>~<%= endTime[0] %>:<%= endTime[1] %><br>
-                                    <%= Session["title"] %>
-                                </a>
+                                <% for (int i = 0; i < scheduleList.Count; i++)
+                                    { %>
+                                       <%  T_SCHEDULE schedule = scheduleList[i];
+                                           if (yearAndMonth[0] == schedule.startDateTime.Year && yearAndMonth[1] == schedule.startDateTime.Month && day == schedule.startDateTime.Day) {%>
+                                            <a href="Scheduling.aspx?id=<%= schedule.scheduleId %>">
+                                                <%= schedule.startDateTime.Hour %>:<%= schedule.startDateTime.Minute %>~<%= schedule.endDateTime.Hour  %>:<%= schedule.endDateTime.Minute %><br>
+                                                <%= schedule.title %>
+                                            </a>
+                                        <% } %>
                                 <% } %>
                             </td>
                             <% } %>

@@ -135,7 +135,7 @@
     <Compile Include="Views\Calendar.aspx.designer.cs">
       <DependentUpon>Calendar.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Views\T_SCHEDULE.cs" />
+    <Compile Include="T_SCHEDULE.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\Form\" />

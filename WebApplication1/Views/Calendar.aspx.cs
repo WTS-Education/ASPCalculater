@@ -5,12 +5,13 @@ using System.Data.SqlClient;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using WebApplication1.Views;
 
 namespace WebApplication1
 {
     public partial class WebForm3 : System.Web.UI.Page
     {
+        public List<T_SCHEDULE> scheduleList;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             int year, month, firstDayOfWeek;
@@ -127,36 +128,32 @@ namespace WebApplication1
                 string query = "select * from T_SCHEDULE";
                 SqlCommand cmd = new SqlCommand(query, con);
                 SqlDataReader sdr = cmd.ExecuteReader();
-                List<T_SCHEDULE> scheduleList = new List<T_SCHEDULE>();
+                scheduleList = new List<T_SCHEDULE>();
 
                 if (sdr.HasRows)
                 {
                     while (sdr.Read())
                     {
                         int scheduleId = (int)sdr["SCHEDULE_ID"];
-                        Session["schedule_id"] = scheduleId;
-                        int titleColor = (int)sdr["titleColor"];
+
+                        int titleColor = (int)sdr["TITLE_COLOR"];
                         string title = (string)sdr["TITLE"];
-                        Session["title"] = title;
+                        
                         string description = (string)sdr["DESCRIPTION"];
                         string note = (string)sdr["NOTE"];
                         DateTime start = (DateTime)sdr["START_TIMESTAMP"];
-                        int startYear = start.Year;
-                        int startMonth = start.Month;
-                        int startDay = start.Day;
-                        int startOclock = start.Hour;
-                        int startMinute = start.Minute;
-                        int[] startTime = { startYear, startMonth, startDay, startOclock, startMinute };
-                        Session["startTime"] = startTime;
                         DateTime end = (DateTime)sdr["END_TIMESTAMP"];
-                        int endOclock = end.Hour;
-                        int endMinute = end.Minute;
-                        int[] endTime = { endOclock, endMinute };
-                        Session["endTime"] = endTime;
-                        T_SCHEDULE schedule = new T_SCHEDULE(scheduleId, start, end, title, titleColor, description, note);
+
+                        T_SCHEDULE schedule = new T_SCHEDULE();
+                        schedule.scheduleId = scheduleId;
+                        schedule.titleColor = titleColor;
+                        schedule.title = title;
+                        schedule.description = description;
+                        schedule.note = note;
+                        schedule.startDateTime = start;
+                        schedule.endDateTime = end;
                         scheduleList.Add(schedule);
                     }
-                    Session["scheduleList"] = scheduleList;
                 }
             }
             catch (Exception ex)
