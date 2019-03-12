@@ -127,31 +127,37 @@ namespace WebApplication1
                 string query = "select * from T_SCHEDULE";
                 SqlCommand cmd = new SqlCommand(query, con);
                 SqlDataReader sdr = cmd.ExecuteReader();
-                
-                while (sdr.Read())
+                List<T_SCHEDULE> scheduleList = new List<T_SCHEDULE>();
+
+                if (sdr.HasRows)
                 {
-                    int scheduleId = (int)sdr["SCHEDULE_ID"];
-                    Session["schedule_id"] = scheduleId;
-                    int titleColor = (int)sdr["titleColor"];
-                    string title = (string)sdr["TITLE"];
-                    Session["title"] = title;
-                    string description = (string)sdr["DESCRIPTION"];
-                    string note = (string)sdr["NOTE"];
-                    DateTime start = (DateTime)sdr["START_TIMESTAMP"];
-                    int startYear = start.Year;
-                    int startMonth = start.Month;
-                    int startDay = start.Day;
-                    int startOclock = start.Hour;
-                    int startMinute = start.Minute;
-                    int[] startTime = { startYear, startMonth, startDay, startOclock, startMinute };
-                    Session["startTime"] = startTime;
-                    DateTime end = (DateTime)sdr["END_TIMESTAMP"];
-                    int endOclock = end.Hour;
-                    int endMinute = end.Minute;
-                    int[] endTime = { endOclock, endMinute };
-                    Session["endTime"] = endTime;
+                    while (sdr.Read())
+                    {
+                        int scheduleId = (int)sdr["SCHEDULE_ID"];
+                        Session["schedule_id"] = scheduleId;
+                        int titleColor = (int)sdr["titleColor"];
+                        string title = (string)sdr["TITLE"];
+                        Session["title"] = title;
+                        string description = (string)sdr["DESCRIPTION"];
+                        string note = (string)sdr["NOTE"];
+                        DateTime start = (DateTime)sdr["START_TIMESTAMP"];
+                        int startYear = start.Year;
+                        int startMonth = start.Month;
+                        int startDay = start.Day;
+                        int startOclock = start.Hour;
+                        int startMinute = start.Minute;
+                        int[] startTime = { startYear, startMonth, startDay, startOclock, startMinute };
+                        Session["startTime"] = startTime;
+                        DateTime end = (DateTime)sdr["END_TIMESTAMP"];
+                        int endOclock = end.Hour;
+                        int endMinute = end.Minute;
+                        int[] endTime = { endOclock, endMinute };
+                        Session["endTime"] = endTime;
+                        T_SCHEDULE schedule = new T_SCHEDULE(scheduleId, start, end, title, titleColor, description, note);
+                        scheduleList.Add(schedule);
+                    }
+                    Session["scheduleList"] = scheduleList;
                 }
-                
             }
             catch (Exception ex)
             {
