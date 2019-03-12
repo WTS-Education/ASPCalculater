@@ -1,0 +1,30 @@
+﻿@charset "UTF-8";
+
+body {
+    background: #EE817B;
+}
+
+div.block_parent {
+    background-color: #FFB2AE;
+    position: relative;
+    height: 765px;
+}
+
+div.block_child {
+    background-color: #FCECEA;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    height: 300px;
+    width: 300px;
+    text-align: center;
+    padding: 30px;
+}
+
+div.block_grandchild {
+    padding: 75px;
+    text-align: center;
+}

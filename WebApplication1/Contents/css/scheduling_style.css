@@ -1,0 +1,157 @@
+﻿@charset "UTF-8";
+
+table.calender_config_title {
+    background-color: #d7dee8;
+    height: 50px;
+    width: 70%;
+    align: center;
+}
+
+span.title_string {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+table {
+    border-collapse: collapse;
+    border: 2px;
+    width: 70%;
+    height: 500px;
+    cellspacing: 0px;
+    table-layout: fixed;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+colgroup.tableHeading {
+    background-color: #e5edfe;
+    /* 	width: 20%; */
+}
+
+/* colgroup.tableContent { */
+/* 	width: 80%; */
+/* } */
+
+th.heading {
+    width: 20%;
+}
+
+td.content {
+    width: 80%;
+}
+
+div.btn {
+    text-align: right;
+}
+
+input.update_btn {
+    border: solid 1px;
+    BACKGROUND-IMAGE: url(http://localhost:8081/Task6_Schedule/static/images/btn_edit.gif);
+    color: #000066;
+    font-size: 14px !important;
+    height: 25px;
+    width: 100px;
+    padding-left: 15px;
+    cursor: pointer;
+}
+
+input.delete_btn {
+    border: solid 1px;
+    BACKGROUND-IMAGE: url(http://localhost:8081/Task6_Schedule/static/images/btn_dell2.gif);
+    color: #000066;
+    font-size: 14px !important;
+    height: 25px;
+    width: 100px;
+    padding-left: 15px;
+    cursor: pointer;
+}
+
+.insert_btn {
+    border: solid 1px;
+    BACKGROUND-IMAGE: url(http://localhost:64570/Contents/image/btn_add.gif);
+    color: #000066;
+    font-size: 14px !important;
+    height: 25px;
+    width: 100px;
+    padding-left: 15px;
+    cursor: pointer;
+}
+
+.update_btn {
+    border: solid 1px;
+    BACKGROUND-IMAGE: url(http://localhost:64570/Contents/image/btn_edit.gif);
+    color: #000066;
+    font-size: 14px !important;
+    height: 25px;
+    width: 100px;
+    padding-left: 15px;
+    cursor: pointer;
+}
+
+.delete_btn {
+    border: solid 1px;
+    BACKGROUND-IMAGE: url(http://localhost:64570/Contents/image/btn_dell2.gif);
+    color: #000066;
+    font-size: 14px !important;
+    height: 25px;
+    width: 100px;
+    padding-left: 15px;
+    cursor: pointer;
+}
+
+.return_btn {
+    border: solid 1px;
+    BACKGROUND-IMAGE: url(http://localhost:64570/Contents/image/btn_ok1.gif);
+    height: 25px;
+    padding-left: 15px;
+    color: #000066;
+    font-size: 14px !important;
+    height: 25px;
+    width: 100px;
+    cursor: pointer;
+}
+
+span.radio_01 {
+    background-color: #0000FF;
+    margin: 2px 2px 1px 1px;
+    padding: 2px 2px 1px 1px;
+}
+
+span.radio_02 {
+    background-color: #FF0000;
+    margin: 2px 2px 1px 1px;
+    padding: 2px 2px 1px 1px;
+}
+
+span.radio_03 {
+    background-color: #009900;
+    margin: 2px 2px 1px 1px;
+    padding: 2px 2px 1px 1px;
+}
+
+span.radio_04 {
+    background-color: #ff9900;
+    margin: 2px 2px 1px 1px;
+    padding: 2px 2px 1px 1px;
+}
+
+span.radio_05 {
+    background-color: #333333;
+    margin: 2px 2px 1px 1px;
+    padding: 2px 2px 1px 1px;
+}
+
+select.timeSelectBox {
+    width: 40px;
+}
+
+label.title_color_text {
+    color: #333333;
+    font-size: 85%;
+}
+
+input.title_textbox {
+    width: 419px;
+}

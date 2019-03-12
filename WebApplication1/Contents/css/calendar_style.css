@@ -1,0 +1,155 @@
+﻿@charset "UTF-8";
+
+table.calendar_titleAndBtn {
+    background-color: #d7dee8;
+    height: 50px;
+    width: 80%;
+    align: center;
+}
+
+span.title_string {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+div.btn {
+    text-align: right;
+}
+
+.thisMonth_btn {
+    background-image: url(http://localhost:64570/Contents/image/today_btn_bg.gif);
+    border: solid 0px;
+    background-repeat: no-repeat;
+    color: #363636;
+    font-size: 13px !important;
+    font-weight: bold;
+    height: 25px;
+    width: 50px;
+    cursor: pointer;
+}
+
+previous_btn {
+    background-image: url(http://localhost:64570/Contents/image/arrow2_l.gif);
+    border: solid 0px;
+    background-repeat: no-repeat;
+    color: #363636;
+    font-size: 13px !important;
+    font-weight: bold;
+    height: 25px;
+    width: 25px;
+    cursor: pointer;
+}
+
+next_btn {
+    background-image: url(http://localhost:64570/Contents/image/arrow2_r.gif);
+    border: solid 0px;
+    background-repeat: no-repeat;
+    color: #363636;
+    font-size: 13px !important;
+    font-weight: bold;
+    height: 25px;
+    width: 25px;
+    cursor: pointer;
+}
+
+
+table {
+    border-collapse: collapse;
+    border: 2px;
+    width: 100%;
+    height: 500px;
+    cellspacing: 0px;
+    table-layout: fixed;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+tr.yearAndMonth {
+    align: left;
+    valign: middle;
+}
+
+colgroup.sunday {
+    background-color: #ffc1c1;
+}
+
+colgroup.saturday {
+    background-color: #e5edfe;
+}
+
+td.month {
+    height: 30px;
+    background-color: #7D91BD;
+    font-size: 120%;
+    font-weight: bold;
+    color: #FFFFFF;
+    margin: 0px;
+    padding: 0px;
+}
+
+tr.dayOfTheWeek {
+    height: 20px;
+    align: right;
+    valign: top;
+    background-color: #eeeeee;
+}
+
+td.dayOfMonth {
+    margin: 5px 5px 5px 5px !important;
+    padding: 5px 5px 5px 5px !important;
+    height: 45px;
+    border: 1px;
+    border-color: #cccccc;
+    BORDER-TOP-STYLE: SOLID;
+    BORDER-BOTTOM-STYLE: SOLID;
+    BORDER-LEFT-STYLE: SOLID;
+    BORDER-RIGHT-STYLE: SOLID;
+    COLOR: #333333;
+    font-size: 100%;
+    font-weight: normal;
+    white-space: nomal;
+}
+
+span.btn {
+    float: left;
+}
+
+button.schedule_btn {
+    border: 0;
+    background: transparent;
+}
+
+div.link {
+    text-align: left;
+}
+
+a.blueLink {
+    color: #0000FF;
+    text-decoration: none;
+}
+
+a.redLink {
+    color: #FF0000;
+    text-decoration: none;
+}
+
+a.greenLink {
+    color: #009900;
+    text-decoration: none;
+}
+
+a.orangeLink {
+    color: #ff9900;
+    text-decoration: none;
+}
+
+a.blackLink {
+    color: #333333;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #FF0000;
+}
