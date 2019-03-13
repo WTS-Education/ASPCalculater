@@ -35,7 +35,7 @@ namespace WebApplication1
                     string userId = sdr["USER_ID"].ToString();
                     Session["userName"] = userName;
                     Session["userId"] = userId;
-                    Server.Transfer("~/Views/ToDo.aspx");
+                    
                 }
                 else
                 {

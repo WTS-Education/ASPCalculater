@@ -8,15 +8,16 @@
     <title>ログイン</title>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" action="ToDo.aspx">
         <div>
             ログインID：　<asp:TextBox ID="LoginID" runat="server"></asp:TextBox>
             <br />
             <br />
             パスワード：　<input type="password" name="password"/>
             <br />
-            <asp:Button ID="Button1" runat="server" style="margin-bottom: 3px" Text="ログイン" Width="74px" OnClick="Button1_Click" />
+                <asp:Button ID="Button1" runat="server" style="margin-bottom: 3px" Text="ログイン" Width="74px" OnClick="Button1_Click" />
             <br />
+        </div>
     </form>
 </body>
 </html>

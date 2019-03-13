@@ -10,8 +10,48 @@ namespace WebApplication1
 {
     public partial class Scheduling : System.Web.UI.Page
     {
+        public string scheduleId;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Request["id"] != null)
+            {
+                scheduleId = Request["id"];
+                SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connection"].ToString());
+                try
+                {
+                    con.Open();
+                    string query = "select * from T_SCHEDULE where SCHEDULE_ID = " + scheduleId;
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    SqlDataReader sdr = cmd.ExecuteReader();
+
+                    if (sdr.HasRows)
+                    {
+                        while (sdr.Read())
+                        {
+                            DateTime startDatetime = (DateTime)sdr["START_TIMESTMP"];
+                            int[] startTime = { startDatetime.Year, startDatetime.Month, startDatetime.Day, startDatetime.Hour, startDatetime.Minute };
+                            DateTime endDatetime = (DateTime)sdr["END_TIMESTMP"];
+                            int[] endTime = { endDatetime.Year, endDatetime.Month, endDatetime.Day, endDatetime.Hour, endDatetime.Minute };
+                            string title = (string)sdr["TITLE"];
+                            int titleColor = (int)sdr["TITLE_COLOR"];
+                            string description = (string)sdr["DESCRIPTION"];
+                            string note = (string)sdr["NOTE"];
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Response.Write(ex.Message);
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
+            else
+            {
+            }
+            
             Label1.Text = (String)Session["userName"];
             Label2.Text = (String)Session["userName"];
         }

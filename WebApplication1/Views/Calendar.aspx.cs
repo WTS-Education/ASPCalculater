@@ -168,7 +168,6 @@ namespace WebApplication1
             {
                 con.Close();
             }
-
         }
 
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
@@ -203,52 +202,6 @@ namespace WebApplication1
         protected void Scadd_Click(object sender, EventArgs e)
         {
             Server.Transfer("~/Views/Scheduling.aspx");
-        }
-
-        protected void Scadd_command(object sender, CommandEventArgs e)
-        {
-            int selectedDay = int.Parse(e.CommandArgument.ToString());
-            Server.Transfer("~/Views/Calendar.aspx");
-        }
-        
-        string scheduleId;
-        /**
-         *   既存スケジュールリンククリック→既存スケジュール更新削除ページ
-         **/
-        protected void LinkButton1_Click(object sender, EventArgs e)
-        {
-            
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connection"].ToString());
-            try
-            {
-                con.Open();
-                string query = "select * from T_SCHEDULE where SCHEDULE_ID = " + scheduleId;
-                SqlCommand cmd = new SqlCommand(query, con);
-                SqlDataReader sdr = cmd.ExecuteReader();
-
-                if (sdr.HasRows)
-                {
-                    while (sdr.Read())
-                    {
-                        DateTime startDatetime = (DateTime)sdr["START_TIMESTMP"];
-                        int[] startTime = { startDatetime.Year, startDatetime.Month, startDatetime.Day, startDatetime.Hour, startDatetime.Minute };
-                        DateTime endDatetime = (DateTime)sdr["END_TIMESTMP"];
-                        int[] endTime = { endDatetime.Year, endDatetime.Month, endDatetime.Day, endDatetime.Hour, endDatetime.Minute };
-                        string title = (string)sdr["TITLE"];
-                        int titleColor = (int)sdr["TITLE_COLOR"];
-                        string description = (string)sdr["DESCRIPTION"];
-                        string note = (string)sdr["NOTE"];
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Response.Write(ex.Message);
-            }
-            finally
-            {
-                con.Close();
-            }
         }
     }
 }

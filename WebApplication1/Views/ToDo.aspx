@@ -8,9 +8,10 @@
     <title>トップ</title>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" action="Calendar.aspx">
         <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
         <div>
+            <input type="submit" name="カレンダー" value="カレンダー" />
             <asp:Button ID="Calendar" runat="server" OnClick="Calendar_Click" Text="カレンダー" />
         </div>
     </form>
