@@ -58,7 +58,7 @@
             { %>
                 <asp:Button ID="Insert" runat="server" Text="登録" CssClass="insert_btn" OnClick="Insert_Click" />
          <%  }
-            else if (true)
+            else
             { %>
                 <asp:Button ID="Update" runat="server" Text="更新" CssClass="update_btn" OnClick="Insert_Click" />
                 <asp:Button ID="Delete" runat="server" Text="削除" CssClass="delete_btn" OnClick="Delete_Click" />

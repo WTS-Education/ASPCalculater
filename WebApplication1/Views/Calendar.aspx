@@ -76,27 +76,27 @@
                                            if (yearAndMonth[0] == schedule.startDateTime.Year && yearAndMonth[1] == schedule.startDateTime.Month && day == schedule.startDateTime.Day) {%>
                                             <% if (schedule.titleColor == 0)
                                                 {%>
-                                                <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click" Text="<%= schedule.scheduleId %>" CssClass="blueLink" >
+                                                <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click" CssClass="blueLink">
                                                     <%= schedule.startDateTime.Hour %>:<%= schedule.startDateTime.Minute %>~<%= schedule.endDateTime.Hour  %>:<%= schedule.endDateTime.Minute %><br>
                                                     <%= schedule.title %>
                                                 </asp:LinkButton>
                                             <% }else if (schedule.titleColor == 1){ %>
-                                                <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click" Text="<%= schedule.scheduleId %>" CssClass="redLink" >
+                                                <asp:LinkButton ID="LinkButton2" runat="server" OnClick="LinkButton1_Click"  CssClass="redLink" CommandArgument="<%= schedule.scheduleId %>">
                                                     <%= schedule.startDateTime.Hour %>:<%= schedule.startDateTime.Minute %>~<%= schedule.endDateTime.Hour  %>:<%= schedule.endDateTime.Minute %><br>
                                                     <%= schedule.title %>
                                                 </asp:LinkButton>
                                             <% }else if (schedule.titleColor == 2){ %>
-                                                <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click" Text="<%= schedule.scheduleId %>" CssClass="greenLink" >
+                                                <asp:LinkButton ID="LinkButton3" runat="server" OnClick="LinkButton1_Click"  CssClass="greenLink" CommandArgument="<%= schedule.scheduleId %>">
                                                     <%= schedule.startDateTime.Hour %>:<%= schedule.startDateTime.Minute %>~<%= schedule.endDateTime.Hour  %>:<%= schedule.endDateTime.Minute %><br>
                                                     <%= schedule.title %>
                                                 </asp:LinkButton>
                                             <% }else if (schedule.titleColor == 3){ %>
-                                                <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click" Text="<%= schedule.scheduleId %>" CssClass="orangeLink" >
+                                                <asp:LinkButton ID="LinkButton4" runat="server" OnClick="LinkButton1_Click"  CssClass="orangeLink" CommandArgument="<%= schedule.scheduleId %>">
                                                     <%= schedule.startDateTime.Hour %>:<%= schedule.startDateTime.Minute %>~<%= schedule.endDateTime.Hour  %>:<%= schedule.endDateTime.Minute %><br>
                                                     <%= schedule.title %>
                                                 </asp:LinkButton>
                                             <% }else if (schedule.titleColor == 4){ %>
-                                                <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click" Text="<%= schedule.scheduleId %>" CssClass="blackLink" >
+                                                <asp:LinkButton ID="LinkButton5" runat="server" OnClick="LinkButton1_Click"  CssClass="blackLink" CommandArgument="<%= schedule.scheduleId %>">
                                                     <%= schedule.startDateTime.Hour %>:<%= schedule.startDateTime.Minute %>~<%= schedule.endDateTime.Hour  %>:<%= schedule.endDateTime.Minute %><br>
                                                     <%= schedule.title %>
                                                 </asp:LinkButton>

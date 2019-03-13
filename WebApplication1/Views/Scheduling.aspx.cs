@@ -21,6 +21,9 @@ namespace WebApplication1
             Server.Transfer("~/Views/Calendar.aspx");
         }
 
+        /**
+        * 登録ボタンクリック→スケジュール登録→登録完了ページ
+        **/
         protected void Insert_Click(object sender, EventArgs e)
         {
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connection"].ToString());
@@ -47,13 +50,13 @@ namespace WebApplication1
 
                 DateTime now = DateTime.Now;
 
-                String title = Title.Text;
+                string title = Title.Text;
 
                 int titleColor = int.Parse(Request["titleColor"]);
 
-                String description = Description.Text;
+                string description = Description.Text;
 
-                String note = Note.Text;
+                string note = Note.Text;
 
                 int scheduleId = (int)Session["schedule_id"];
                 int insertOrUpdateUser = int.Parse((String)Session["userId"]);
@@ -76,19 +79,9 @@ namespace WebApplication1
                 }
                 else if (buttonId == "Update")
                 {
-                    DateTime updateTime = DateTime.Now;
-                    string updateQuery = "UPDATE T_SCHEDULE SET START_TIMESTAMP = " + "'" + startTime + "', " +
-                        "END_TIMESTAMP = " + "'" + endTime + "', " + "TITLE = " + "'" + title + "', " + "TITLE_COLOR = " + "'" +
-                        titleColor + "', " + "DESCRIPTION = " + "'" + description + "', " + "NOTE = " + "'" + note + "', " +
-                        "EDIT_AUTHORITY = " + "'" + editAuthority + "', " + "RELEASE_FLG = " + "'0', " + "UPDATE_DATE = " +
-                        "'" + updateTime + "', " + "UPDATE_USER = " + "'" + insertOrUpdateUser + "', " + "DELETE_FLG = " + "'0' " +
-                        "WHERE SCHEDULE_ID = " + scheduleId + ";";
-                    cmd = new SqlCommand(updateQuery, con);
-                    adapter.UpdateCommand = new SqlCommand(updateQuery, con);
-                    adapter.UpdateCommand.ExecuteNonQuery();
-                    cmd.Dispose();
+                    Update_Click(con, adapter, startTime, endTime, title,
+                        titleColor, description, note, editAuthority, scheduleId);
                 }
-                
             }
             catch (Exception exception)
             {
@@ -102,7 +95,29 @@ namespace WebApplication1
             }
 
         }
+        /**
+         *   更新ボタンクリック→スケジュール更新→更新完了ページ
+         **/
+        protected void Update_Click(SqlConnection con, SqlDataAdapter adapter, DateTime startTime, DateTime endTime,
+            string title, int titleColor, string description, string note, int editAuthority,
+            int scheduleId)
+        {
+            DateTime updateTime = DateTime.Now;
+            string updateQuery = "UPDATE T_SCHEDULE SET START_TIMESTAMP = " + "'" + startTime + "', " +
+                "END_TIMESTAMP = " + "'" + endTime + "', " + "TITLE = " + "'" + title + "', " + "TITLE_COLOR = " + "'" +
+                titleColor + "', " + "DESCRIPTION = " + "'" + description + "', " + "NOTE = " + "'" + note + "', " +
+                "EDIT_AUTHORITY = " + "'" + editAuthority + "', " + "RELEASE_FLG = " + "'0', " + "UPDATE_DATE = " +
+                "'" + updateTime + "', " + "UPDATE_USER = " + "'" + scheduleId + "', " + "DELETE_FLG = " + "'0' " +
+                "WHERE SCHEDULE_ID = " + scheduleId + ";";
+            SqlCommand cmd = new SqlCommand(updateQuery, con);
+            adapter.UpdateCommand = new SqlCommand(updateQuery, con);
+            adapter.UpdateCommand.ExecuteNonQuery();
+            cmd.Dispose();
+        }
 
+        /**
+         *   削除ボタンクリック→削除確認ページ
+         **/
         protected void Delete_Click(object sender, EventArgs e)
         {
             Server.Transfer("~/Views/DeleteCheck.aspx");

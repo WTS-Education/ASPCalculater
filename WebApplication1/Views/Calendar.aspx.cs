@@ -13,6 +13,9 @@ namespace WebApplication1
         public List<T_SCHEDULE> scheduleList;
         public T_SCHEDULE schedule;
 
+        /**
+         *  カレンダーページロード 
+         **/
         protected void Page_Load(object sender, EventArgs e)
         {
             int year, month, firstDayOfWeek;
@@ -178,19 +181,25 @@ namespace WebApplication1
             Session["yearAndMonth"] = null;
             Server.Transfer("~/Views/Calendar.aspx");
         }
-
+        /**
+         *  ◀ボタンクリック→前月カレンダー
+         **/
         protected void ImageButton3_Click(object sender, ImageClickEventArgs e)
         {
             Session["previous"] = "previous";
             Server.Transfer("~/Views/Calendar.aspx");
         }
-
+        /**
+         *  ▶ボタンクリック→翌月カレンダー
+         **/
         protected void ImageButton1_Click(object sender, ImageClickEventArgs e)
         {
             Session["next"] = "next";
             Server.Transfer("~/Views/Calendar.aspx");
         }
-
+        /**
+         *  スケジュール登録ボタンクリック→スケジュール登録ページ
+         **/
         protected void Scadd_Click(object sender, EventArgs e)
         {
             Server.Transfer("~/Views/Scheduling.aspx");
@@ -201,21 +210,14 @@ namespace WebApplication1
             int selectedDay = int.Parse(e.CommandArgument.ToString());
             Server.Transfer("~/Views/Calendar.aspx");
         }
-
-        protected void ScheduleLink_Click(object sender, EventArgs e)
-        {
-            Session["startTimeDate"] = schedule.startDateTime;
-            Session["endTimeDate"] = schedule.endDateTime;
-            Session["title"] = schedule.title;
-            Session["titleColor"] = schedule.titleColor;
-            Session["description"] = schedule.description;
-            Session["note"] = schedule.note;
-        }
-
+        
+        string scheduleId;
+        /**
+         *   既存スケジュールリンククリック→既存スケジュール更新削除ページ
+         **/
         protected void LinkButton1_Click(object sender, EventArgs e)
         {
-            string scheduleId = LinkButton1.Text;
-
+            
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connection"].ToString());
             try
             {
@@ -246,7 +248,6 @@ namespace WebApplication1
             finally
             {
                 con.Close();
-                Server.Transfer("~/Views/Scheduling.aspx");
             }
         }
     }
