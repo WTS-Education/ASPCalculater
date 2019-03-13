@@ -12,7 +12,6 @@ namespace WebApplication1
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string scheduleId = (string)Session["schedule_id"];
             Label1.Text = (String)Session["userName"];
             Label2.Text = (String)Session["userName"];
         }

@@ -72,13 +72,36 @@
                                 <br><br>
                                 <% for (int i = 0; i < scheduleList.Count; i++)
                                     { %>
-                                       <%  T_SCHEDULE schedule = scheduleList[i];
+                                       <%  schedule = scheduleList[i];
                                            if (yearAndMonth[0] == schedule.startDateTime.Year && yearAndMonth[1] == schedule.startDateTime.Month && day == schedule.startDateTime.Day) {%>
-                                            <a href="Scheduling.aspx?id=<%= schedule.scheduleId %>">
-                                                <%= schedule.startDateTime.Hour %>:<%= schedule.startDateTime.Minute %>~<%= schedule.endDateTime.Hour  %>:<%= schedule.endDateTime.Minute %><br>
-                                                <%= schedule.title %>
-                                            </a>
-                                        <% } %>
+                                            <% if (schedule.titleColor == 0)
+                                                {%>
+                                                <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click" Text="<%= schedule.scheduleId %>" CssClass="blueLink" >
+                                                    <%= schedule.startDateTime.Hour %>:<%= schedule.startDateTime.Minute %>~<%= schedule.endDateTime.Hour  %>:<%= schedule.endDateTime.Minute %><br>
+                                                    <%= schedule.title %>
+                                                </asp:LinkButton>
+                                            <% }else if (schedule.titleColor == 1){ %>
+                                                <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click" Text="<%= schedule.scheduleId %>" CssClass="redLink" >
+                                                    <%= schedule.startDateTime.Hour %>:<%= schedule.startDateTime.Minute %>~<%= schedule.endDateTime.Hour  %>:<%= schedule.endDateTime.Minute %><br>
+                                                    <%= schedule.title %>
+                                                </asp:LinkButton>
+                                            <% }else if (schedule.titleColor == 2){ %>
+                                                <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click" Text="<%= schedule.scheduleId %>" CssClass="greenLink" >
+                                                    <%= schedule.startDateTime.Hour %>:<%= schedule.startDateTime.Minute %>~<%= schedule.endDateTime.Hour  %>:<%= schedule.endDateTime.Minute %><br>
+                                                    <%= schedule.title %>
+                                                </asp:LinkButton>
+                                            <% }else if (schedule.titleColor == 3){ %>
+                                                <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click" Text="<%= schedule.scheduleId %>" CssClass="orangeLink" >
+                                                    <%= schedule.startDateTime.Hour %>:<%= schedule.startDateTime.Minute %>~<%= schedule.endDateTime.Hour  %>:<%= schedule.endDateTime.Minute %><br>
+                                                    <%= schedule.title %>
+                                                </asp:LinkButton>
+                                            <% }else if (schedule.titleColor == 4){ %>
+                                                <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click" Text="<%= schedule.scheduleId %>" CssClass="blackLink" >
+                                                    <%= schedule.startDateTime.Hour %>:<%= schedule.startDateTime.Minute %>~<%= schedule.endDateTime.Hour  %>:<%= schedule.endDateTime.Minute %><br>
+                                                    <%= schedule.title %>
+                                                </asp:LinkButton>
+                                            <% } %>
+                                        <% } else{ } %>
                                 <% } %>
                             </td>
                             <% } %>

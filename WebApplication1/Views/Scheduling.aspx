@@ -54,11 +54,17 @@
 
 		<tr>
 		<td class="auto-style2" style="text-align:right">
-			
-		    <asp:Button ID="Insert" runat="server" Text="登録" CssClass="insert_btn" OnClick="Insert_Click" />
-            <asp:Button ID="Update" runat="server" Text="更新" CssClass="update_btn" OnClick="Insert_Click" />
-            <asp:Button ID="Delete" runat="server" Text="削除" CssClass="delete_btn" OnClick="Delete_Click" />
-            <asp:Button ID="Return" runat="server" OnClick="Return_Click" Text="戻る" CssClass="return_btn" />
+		 <% if (Session["title"] == null)
+            { %>
+                <asp:Button ID="Insert" runat="server" Text="登録" CssClass="insert_btn" OnClick="Insert_Click" />
+         <%  }
+            else if (true)
+            { %>
+                <asp:Button ID="Update" runat="server" Text="更新" CssClass="update_btn" OnClick="Insert_Click" />
+                <asp:Button ID="Delete" runat="server" Text="削除" CssClass="delete_btn" OnClick="Delete_Click" />
+           <% } %>	
+		    
+                <asp:Button ID="Return" runat="server" OnClick="Return_Click" Text="戻る" CssClass="return_btn" />
 			
 		</td>
 		</tr>
@@ -175,7 +181,7 @@
 			<tr>
 				<th>タイトル</th>
 				<td class="auto-style1">
-			    
+			    <%  %>
                     <asp:TextBox ID="Title" runat="server"></asp:TextBox>
 			    
                 </td>

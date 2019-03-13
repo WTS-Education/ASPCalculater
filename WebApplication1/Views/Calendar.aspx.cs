@@ -11,6 +11,7 @@ namespace WebApplication1
     public partial class WebForm3 : System.Web.UI.Page
     {
         public List<T_SCHEDULE> scheduleList;
+        public T_SCHEDULE schedule;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -201,5 +202,52 @@ namespace WebApplication1
             Server.Transfer("~/Views/Calendar.aspx");
         }
 
+        protected void ScheduleLink_Click(object sender, EventArgs e)
+        {
+            Session["startTimeDate"] = schedule.startDateTime;
+            Session["endTimeDate"] = schedule.endDateTime;
+            Session["title"] = schedule.title;
+            Session["titleColor"] = schedule.titleColor;
+            Session["description"] = schedule.description;
+            Session["note"] = schedule.note;
+        }
+
+        protected void LinkButton1_Click(object sender, EventArgs e)
+        {
+            string scheduleId = LinkButton1.Text;
+
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connection"].ToString());
+            try
+            {
+                con.Open();
+                string query = "select * from T_SCHEDULE where SCHEDULE_ID = " + scheduleId;
+                SqlCommand cmd = new SqlCommand(query, con);
+                SqlDataReader sdr = cmd.ExecuteReader();
+
+                if (sdr.HasRows)
+                {
+                    while (sdr.Read())
+                    {
+                        DateTime startDatetime = (DateTime)sdr["START_TIMESTMP"];
+                        int[] startTime = { startDatetime.Year, startDatetime.Month, startDatetime.Day, startDatetime.Hour, startDatetime.Minute };
+                        DateTime endDatetime = (DateTime)sdr["END_TIMESTMP"];
+                        int[] endTime = { endDatetime.Year, endDatetime.Month, endDatetime.Day, endDatetime.Hour, endDatetime.Minute };
+                        string title = (string)sdr["TITLE"];
+                        int titleColor = (int)sdr["TITLE_COLOR"];
+                        string description = (string)sdr["DESCRIPTION"];
+                        string note = (string)sdr["NOTE"];
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write(ex.Message);
+            }
+            finally
+            {
+                con.Close();
+                Server.Transfer("~/Views/Scheduling.aspx");
+            }
+        }
     }
 }

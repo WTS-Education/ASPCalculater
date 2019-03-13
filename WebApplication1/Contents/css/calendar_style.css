@@ -125,27 +125,27 @@ div.link {
     text-align: left;
 }
 
-a.blueLink {
+.blueLink {
     color: #0000FF;
     text-decoration: none;
 }
 
-a.redLink {
+.redLink {
     color: #FF0000;
     text-decoration: none;
 }
 
-a.greenLink {
+.greenLink {
     color: #009900;
     text-decoration: none;
 }
 
-a.orangeLink {
+.orangeLink {
     color: #ff9900;
     text-decoration: none;
 }
 
-a.blackLink {
+.blackLink {
     color: #333333;
     text-decoration: none;
 }
