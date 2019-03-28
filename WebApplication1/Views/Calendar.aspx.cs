@@ -196,12 +196,5 @@ namespace WebApplication1
             Session["next"] = "next";
             Server.Transfer("~/Views/Calendar.aspx");
         }
-        /**
-         *  スケジュール登録ボタンクリック→スケジュール登録ページ
-         **/
-        protected void Scadd_Click(object sender, EventArgs e)
-        {
-            Server.Transfer("~/Views/Scheduling.aspx");
-        }
     }
 }

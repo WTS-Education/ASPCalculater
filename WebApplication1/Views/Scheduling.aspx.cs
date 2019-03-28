@@ -10,12 +10,14 @@ namespace WebApplication1
 {
     public partial class Scheduling : System.Web.UI.Page
     {
-        public string scheduleId;
+        public int? scheduleId;
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request["id"] != null)
             {
-                scheduleId = Request["id"];
+                scheduleId = int.Parse(Request["id"]);
+                Session["scheduleId"] = scheduleId;
                 SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connection"].ToString());
                 try
                 {
@@ -52,8 +54,8 @@ namespace WebApplication1
             {
             }
             
-            Label1.Text = (String)Session["userName"];
-            Label2.Text = (String)Session["userName"];
+            Label1.Text = (string)Session["userName"];
+            Label2.Text = (string)Session["userName"];
         }
 
         protected void Return_Click(object sender, EventArgs e)
@@ -69,8 +71,8 @@ namespace WebApplication1
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connection"].ToString());
             SqlCommand cmd;
             SqlDataAdapter adapter = new SqlDataAdapter();
-            Button button = (Button)sender;
-            string buttonId = button.ID;
+            string buttonId = ((Button)sender).ID;
+            string id = buttonId;
 
             try
             {
@@ -98,8 +100,7 @@ namespace WebApplication1
 
                 string note = Note.Text;
 
-                int scheduleId = (int)Session["schedule_id"];
-                int insertOrUpdateUser = int.Parse((String)Session["userId"]);
+                int insertOrUpdateUser = (int)Session["userId"];
                 int editAuthority = insertOrUpdateUser;
                 con.Open();
                 if (buttonId == "Insert")
@@ -120,7 +121,7 @@ namespace WebApplication1
                 else if (buttonId == "Update")
                 {
                     Update_Click(con, adapter, startTime, endTime, title,
-                        titleColor, description, note, editAuthority, scheduleId);
+                        titleColor, description, note, editAuthority);
                 }
             }
             catch (Exception exception)
@@ -139,15 +140,14 @@ namespace WebApplication1
          *   更新ボタンクリック→スケジュール更新→更新完了ページ
          **/
         protected void Update_Click(SqlConnection con, SqlDataAdapter adapter, DateTime startTime, DateTime endTime,
-            string title, int titleColor, string description, string note, int editAuthority,
-            int scheduleId)
+            string title, int titleColor, string description, string note, int editAuthority)
         {
             DateTime updateTime = DateTime.Now;
             string updateQuery = "UPDATE T_SCHEDULE SET START_TIMESTAMP = " + "'" + startTime + "', " +
                 "END_TIMESTAMP = " + "'" + endTime + "', " + "TITLE = " + "'" + title + "', " + "TITLE_COLOR = " + "'" +
                 titleColor + "', " + "DESCRIPTION = " + "'" + description + "', " + "NOTE = " + "'" + note + "', " +
                 "EDIT_AUTHORITY = " + "'" + editAuthority + "', " + "RELEASE_FLG = " + "'0', " + "UPDATE_DATE = " +
-                "'" + updateTime + "', " + "UPDATE_USER = " + "'" + scheduleId + "', " + "DELETE_FLG = " + "'0' " +
+                "'" + updateTime + "', " + "UPDATE_USER = " + "'" + editAuthority + "', " + "DELETE_FLG = " + "'0' " +
                 "WHERE SCHEDULE_ID = " + scheduleId + ";";
             SqlCommand cmd = new SqlCommand(updateQuery, con);
             adapter.UpdateCommand = new SqlCommand(updateQuery, con);

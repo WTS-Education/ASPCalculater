@@ -22,7 +22,7 @@ namespace WebApplication1.Views
             {
                 SqlCommand cmd;
                 SqlDataAdapter adapter = new SqlDataAdapter();
-                int scheduleId = (int)Session["schedule_id"];
+                int scheduleId = (int)Session["scheduleId"];
                 con.Open();
                 string deleteQuery = "DELETE FROM T_SCHEDULE WHERE SCHEDULE_ID = " + scheduleId + ";";
                 cmd = new SqlCommand(deleteQuery, con);

@@ -56,12 +56,12 @@
 		<td class="auto-style2" style="text-align:right">
 		 <% if (scheduleId == null)
             { %>
-                <asp:Button ID="Insert" runat="server" Text="登録" CssClass="insert_btn" OnClick="Insert_Click" />
+                <asp:Button ID="Insert" runat="server" Text="登録"  OnClick="Insert_Click" CssClass="insert_btn"/>
          <%  }
             else
             { %>
-                <asp:Button ID="Update" runat="server" Text="更新" CssClass="update_btn" OnClick="Insert_Click" />
-                <asp:Button ID="Delete" runat="server" Text="削除" CssClass="delete_btn" OnClick="Delete_Click" />
+                <asp:Button ID="Update" runat="server" Text="更新"  OnClick="Insert_Click" CssClass="update_btn"/>
+                <asp:Button ID="Delete" runat="server" Text="削除"  OnClick="Delete_Click" CssClass="delete_btn"/>
            <% } %>	
                 <asp:Button ID="Return" runat="server" OnClick="Return_Click" Text="戻る"  CssClass="return_btn" />
 		</td>
@@ -80,7 +80,7 @@
 			</tr>
 
 			<tr>
-				<th class="key">開始</th>
+				<th class="key">開始<span style="color:red">※</span></th>
 				<td class="auto-style1">
 				<!-- 開始年 -->
 				<select name="startYear">
@@ -116,12 +116,19 @@
 				</select>
 				<!-- 開始時 -->
 				<select name="startOclock">
+                        <option value="未設定">未設定</option>
                     <%for (int oclock = 0; oclock <= 23; oclock++) { %>
-                        <option value="<%= oclock %>"><%= oclock %></option>
+                        <%if (oclock == 9)
+                            {%>
+                            <option value="<%= oclock %>" selected="selected"><%= oclock %></option>
+                        <% } else { %>
+                            <option value="<%= oclock %>"><%= oclock %></option>
+                        <% } %>
                     <% } %>
 				</select>時
 				<!-- 開始分 -->
 				<select name="startMinute">
+                    <option value="未設定">未設定</option>
                     <%for (int minute = 0; minute <= 45; minute += 15) { %>
                         <option value="<%= minute %>"><%= minute %></option>
                     <% } %>
@@ -129,7 +136,7 @@
 			</tr>
 
 			<tr>
-				<th>終了</th>
+				<th>終了<span style="color:red">※</span></th>
 				<td class="auto-style1">
 				<!-- 終了年 -->
 				<select name="endYear">
@@ -163,21 +170,28 @@
 				</select>
 				<!-- 終了時 -->
 				<select name="endOclock">
-                    <%for (int oclock = 0; oclock <= 23; oclock++) { %>
-                        <option value="<%= oclock %>"><%= oclock %></option>
+                    <option value="未設定">未設定</option>
+                    <%for (int endOclock = 0; endOclock <= 23; endOclock++) { %>
+                        <%if (endOclock == 18)
+                            {%>
+                            <option value="<%= endOclock%>" selected="selected"><%= endOclock %></option>
+                        <% } else { %>
+                            <option value="<%= endOclock %>"><%= endOclock %></option>
+                        <% } %>
                     <% } %>
-				</select>時
+                </select>時
 				<!-- 終了分 -->
 				<select name="endMinute">
+                    <option value="未設定">未設定</option>
                     <%for (int minute = 0; minute <= 45; minute += 15) { %>
-                        <option value="<%= minute %>"><%= minute %></option>
+                    <option value="<%= minute %>"><%= minute %></option>
                     <% } %>
 				</select>分  期間：一日間
 				
 			</tr>
 
 			<tr>
-				<th>タイトル</th>
+				<th>タイトル<span style="color:red">※</span></th>
 				<td class="auto-style1">
 			    <%  %>
                     <asp:TextBox ID="Title" runat="server"></asp:TextBox>

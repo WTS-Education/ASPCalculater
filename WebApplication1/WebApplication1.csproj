@@ -77,10 +77,10 @@
     <Content Include="Contents\image\today_btn_bg.gif" />
     <Content Include="Views\DeleteCheck.aspx" />
     <Content Include="Views\DeletingIsOk.aspx" />
+    <Content Include="Views\Index.aspx" />
     <Content Include="Views\Scheduling.aspx" />
     <Content Include="Views\SchedulingIsOk.aspx" />
     <Content Include="Web.config" />
-    <Content Include="Views\Index.aspx" />
     <Content Include="Views\ToDo.aspx" />
     <Content Include="Views\Calendar.aspx" />
   </ItemGroup>
@@ -100,6 +100,13 @@
     <Compile Include="Views\DeletingIsOk.aspx.designer.cs">
       <DependentUpon>DeletingIsOk.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Scheduling.aspx.cs">
       <DependentUpon>Scheduling.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -113,13 +120,6 @@
     </Compile>
     <Compile Include="Views\SchedulingIsOk.aspx.designer.cs">
       <DependentUpon>SchedulingIsOk.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Index.aspx.cs">
-      <DependentUpon>Index.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Views\Index.aspx.designer.cs">
-      <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\ToDo.aspx.cs">
       <DependentUpon>ToDo.aspx</DependentUpon>

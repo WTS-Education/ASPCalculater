@@ -17,7 +17,7 @@
     </style>
 </head>
 <body>
-    <form id="form1" runat="server" action="Scheduling.aspx">
+    <form id="form1" runat="server">
         <div style="height: 487px">
         <table border="1" class="calendar_titleAndBtn">
 		<tr>
@@ -64,7 +64,7 @@
                         %>
                             <td class="dayOfMonth">
 							    <span class="btn">
-                                    <button type="submit" runat="server" name="selectedDay" value="<%= day %>" class="schedule_btn" onserverclick="Scadd_Click">
+                                    <button type="submit" runat="server" name="selectedDay" value="<%= day %>" class="schedule_btn" formaction="http://localhost:64570/Views/Scheduling.aspx">
 								        <asp:Image ID="Image2" ImageUrl="~/Contents/image/scadd.gif" runat="server" />
 							        </button>
 							    </span>
@@ -103,6 +103,7 @@
                                             <% } %>
                                         <% } else{ } %>
                                 <% } %>
+                                <br />
                             </td>
                             <% } %>
                         <% } %>

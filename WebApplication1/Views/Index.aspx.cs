@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Data.SqlClient; 
+using System.Data.SqlClient;
 using System.Configuration;
 
 namespace WebApplication1
@@ -13,7 +13,6 @@ namespace WebApplication1
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
 
         protected void Button1_Click(object sender, EventArgs e)
@@ -22,7 +21,7 @@ namespace WebApplication1
 
             try
             {
-                string loginID = LoginID.Text;
+                string loginID = LoginId.Text;
                 string password = Request["password"];
                 con.Open();
                 string query = "select * from M_User where LOGIN_ID='" + loginID + "' and PASSWORD='" + password + "'";
@@ -32,10 +31,10 @@ namespace WebApplication1
                 {
                     //ログイン成功
                     string userName = sdr["USER_NAME"].ToString();
-                    string userId = sdr["USER_ID"].ToString();
+                    int userId = (int)sdr["USER_ID"];
                     Session["userName"] = userName;
                     Session["userId"] = userId;
-                    
+                    Server.Transfer("~/Views/ToDo.aspx");
                 }
                 else
                 {
@@ -50,6 +49,6 @@ namespace WebApplication1
             {
                 con.Close();
             }
-        }      
+        }
     }
 }

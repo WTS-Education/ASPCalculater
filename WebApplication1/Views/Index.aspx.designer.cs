@@ -22,13 +22,13 @@ namespace WebApplication1 {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// LoginID コントロール。
+        /// LoginId コントロール。
         /// </summary>
         /// <remarks>
         /// 自動生成されたフィールド。
         /// 変更するには、フィールドの宣言をデザイナー ファイルから分離コード ファイルに移動します。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox LoginID;
+        protected global::System.Web.UI.WebControls.TextBox LoginId;
         
         /// <summary>
         /// Button1 コントロール。
