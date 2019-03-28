@@ -48,7 +48,7 @@ div.btn {
 
 .update_btn {
     border: solid 1px;
-    BACKGROUND-IMAGE: url(http://localhost:8081/Task6_Schedule/static/images/btn_edit.gif);
+    BACKGROUND-IMAGE: url(http://localhost:64570/Contents/image/btn_edit.gif);
     color: #000066;
     font-size: 14px !important;
     height: 25px;
@@ -59,7 +59,7 @@ div.btn {
 
 .delete_btn {
     border: solid 1px;
-    BACKGROUND-IMAGE: url(http://localhost:8081/Task6_Schedule/static/images/btn_dell2.gif);
+    BACKGROUND-IMAGE: url(http://localhost:64570/Contents/image/btn_dell2.gif);
     color: #000066;
     font-size: 14px !important;
     height: 25px;
