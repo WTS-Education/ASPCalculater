@@ -11,6 +11,12 @@ namespace WebApplication1
     public partial class Scheduling : System.Web.UI.Page
     {
         public int? scheduleId;
+        public int[] startTime = new int[5];
+        public int[] endTime = new int[5];
+        public string title;
+        public int titleColor;
+        public string description;
+        public string note;
         
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -30,14 +36,22 @@ namespace WebApplication1
                     {
                         while (sdr.Read())
                         {
-                            DateTime startDatetime = (DateTime)sdr["START_TIMESTMP"];
-                            int[] startTime = { startDatetime.Year, startDatetime.Month, startDatetime.Day, startDatetime.Hour, startDatetime.Minute };
-                            DateTime endDatetime = (DateTime)sdr["END_TIMESTMP"];
-                            int[] endTime = { endDatetime.Year, endDatetime.Month, endDatetime.Day, endDatetime.Hour, endDatetime.Minute };
-                            string title = (string)sdr["TITLE"];
-                            int titleColor = (int)sdr["TITLE_COLOR"];
-                            string description = (string)sdr["DESCRIPTION"];
-                            string note = (string)sdr["NOTE"];
+                            DateTime startDateTime = (DateTime)sdr["START_TIMESTMP"];
+                            startTime[0] = startDateTime.Year;
+                            startTime[1] = startDateTime.Month;
+                            startTime[2] = startDateTime.Day;
+                            startTime[3] = startDateTime.Hour;
+                            startTime[4] = startDateTime.Minute;
+                            DateTime endDateTime = (DateTime)sdr["END_TIMESTMP"];
+                            endTime[0] = endDateTime.Year;
+                            endTime[1] = endDateTime.Month;
+                            endTime[2] = endDateTime.Day;
+                            endTime[3] = endDateTime.Hour;
+                            endTime[4] = endDateTime.Minute;
+                            title = (string)sdr["TITLE"];
+                            titleColor = (int)sdr["TITLE_COLOR"];
+                            description = (string)sdr["DESCRIPTION"];
+                            note = (string)sdr["NOTE"];
                         }
                     }
                 }
@@ -68,72 +82,94 @@ namespace WebApplication1
         **/
         protected void Insert_Click(object sender, EventArgs e)
         {
+            StartTimeError.Text = "";
+            EndTimeError.Text = "";
+
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connection"].ToString());
             SqlCommand cmd;
             SqlDataAdapter adapter = new SqlDataAdapter();
             string buttonId = ((Button)sender).ID;
             string id = buttonId;
+            int startYear = Convert.ToInt32(Request["startYear"]);
+            int startMonth = Convert.ToInt32(Request["startMonth"]);
+            int startDay = Convert.ToInt32(Request["startDay"]);
+            int startOclock = Convert.ToInt32(Request["startOclock"]);
+            int startMinute = Convert.ToInt32(Request["startMinute"]);
 
-            try
+            int endYear = int.Parse(Request["endYear"]);
+            int endMonth = int.Parse(Request["endMonth"]);
+            int endDay = int.Parse(Request["endDay"]);
+            int endOclock = int.Parse(Request["endOclock"]);
+            int endMinute = int.Parse(Request["endMinute"]);
+
+            if (startDay <= DateTime.DaysInMonth(startYear, startMonth) && endDay <= DateTime.DaysInMonth(endYear, endMonth))
             {
-                int startYear = Convert.ToInt32(Request["startYear"]);
-                int startMonth = Convert.ToInt32(Request["startMonth"]);
-                int startDay = Convert.ToInt32(Request["startDay"]);
-                int startOclock = Convert.ToInt32(Request["startOclock"]);
-                int startMinute = Convert.ToInt32(Request["startMinute"]);
-                DateTime startTime = new DateTime(startYear, startMonth, startDay, startOclock, startMinute, 00, 00);
-
-                int endYear = int.Parse(Request["endYear"]);
-                int endMonth = int.Parse(Request["endMonth"]);
-                int endDay = int.Parse(Request["endDay"]);
-                int endOclock = int.Parse(Request["endOclock"]);
-                int endMinute = int.Parse(Request["endMinute"]);
-                DateTime endTime = new DateTime(endYear, endMonth, endDay, endOclock, endMinute, 00, 00);
-
-                DateTime now = DateTime.Now;
-
-                string title = Title.Text;
-
-                int titleColor = int.Parse(Request["titleColor"]);
-
-                string description = Description.Text;
-
-                string note = Note.Text;
-
-                int insertOrUpdateUser = (int)Session["userId"];
-                int editAuthority = insertOrUpdateUser;
-                con.Open();
-                if (buttonId == "Insert")
+                try
                 {
-                    string insertQuery = "INSERT INTO T_SCHEDULE (" +
-                    "START_TIMESTAMP, END_TIMESTAMP, TITLE, TITLE_COLOR, DESCRIPTION, NOTE, " +
-                    "EDIT_AUTHORITY, RELEASE_FLG, INSERT_DATE, INSERT_USER, DELETE_FLG " +
-                    ")" +
-                    " VALUES (" +
-                    "'" + startTime + "', '" + endTime + "', '" + title + "', '" + titleColor + "', '" + description + "', '" + note + "', '" +
-                    editAuthority + "'," + "0, '" + now + "', '" + insertOrUpdateUser + "'," + "0" +
-                    ");";
-                    cmd = new SqlCommand(insertQuery, con);
-                    adapter.InsertCommand = new SqlCommand(insertQuery, con);
-                    adapter.InsertCommand.ExecuteNonQuery();
-                    cmd.Dispose();
+                    DateTime startTime = new DateTime(startYear, startMonth, startDay, startOclock, startMinute, 00, 00);
+                    DateTime endTime = new DateTime(endYear, endMonth, endDay, endOclock, endMinute, 00, 00);
+                    DateTime now = DateTime.Now;
+
+                    string title = Title.Text;
+
+                    int titleColor = int.Parse(Request["titleColor"]);
+
+                    string description = Description.Text;
+
+                    string note = Note.Text;
+
+                    int insertOrUpdateUser = (int)Session["userId"];
+                    int editAuthority = insertOrUpdateUser;
+
+                    con.Open();
+                    if (buttonId == "Insert")
+                    {
+                        //sql文
+                        string insertQuery = "INSERT INTO T_SCHEDULE (" +
+                        "START_TIMESTAMP, END_TIMESTAMP, TITLE, TITLE_COLOR, DESCRIPTION, NOTE, " +
+                        "EDIT_AUTHORITY, RELEASE_FLG, INSERT_DATE, INSERT_USER, DELETE_FLG " +
+                        ")" +
+                        " VALUES (" +
+                        "'" + startTime + "', '" + endTime + "', '" + title + "', '" + titleColor + "', '" + description + "', '" + note + "', '" +
+                        editAuthority + "'," + "0, '" + now + "', '" + insertOrUpdateUser + "'," + "0" +
+                        ");";
+                        
+                        cmd = new SqlCommand(insertQuery, con);
+
+                        
+                        adapter.InsertCommand = new SqlCommand(insertQuery, con);
+                        //sql実行
+                        adapter.InsertCommand.ExecuteNonQuery();
+                        cmd.Dispose();
+                    }
+                    else if (buttonId == "Update")
+                    {
+                        Update_Click(con, adapter, startTime, endTime, title,
+                            titleColor, description, note, editAuthority);
+                    }
                 }
-                else if (buttonId == "Update")
+                catch (Exception exception)
                 {
-                    Update_Click(con, adapter, startTime, endTime, title,
-                        titleColor, description, note, editAuthority);
+                    Console.WriteLine(exception.Message);
+                    throw;
+                }
+                finally
+                {
+                    con.Close();
+                    Server.Transfer("~/Views/SchedulingIsOk.aspx");
+                }
+            } else
+            {
+                if (DateTime.DaysInMonth(startYear, startMonth) < startDay)
+                {
+                    StartTimeError.Text = "[開始日]は存在しない日付です。正しい日付を入力してください。";
+                }
+                if (DateTime.DaysInMonth(endYear, endMonth) < endDay)
+                {
+                    EndTimeError.Text = "[終了日]は存在しない日付です。正しい日付を入力してください。";
                 }
             }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception.Message);
-                throw;
-            }
-            finally
-            {
-                con.Close();
-                Server.Transfer("~/Views/SchedulingIsOk.aspx");
-            }
+            
 
         }
         /**

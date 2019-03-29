@@ -39,11 +39,12 @@ namespace WebApplication1
                 else
                 {
                     //ログイン失敗
+                    Label1.Text = "ユーザＩＤまたはパスワードが不正です。入力内容を確認し再度ログインしてください。";
                 }
             }
             catch (Exception ex)
             {
-                Response.Write(ex.Message);
+                Label1.Text = "ユーザＩＤまたはパスワードが不正です。入力内容を確認し再度ログインしてください。";
             }
             finally
             {

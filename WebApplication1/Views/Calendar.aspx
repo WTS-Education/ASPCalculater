@@ -64,7 +64,7 @@
                         %>
                             <td class="dayOfMonth">
 							    <span class="btn">
-                                    <button type="submit" runat="server" name="selectedDay" value="<%= day %>" class="schedule_btn" formaction="http://localhost:64570/Views/Scheduling.aspx">
+                                    <button type="submit" runat="server" name="selectedDay" value="<%= day %>" class="schedule_btn" formaction="Scheduling.aspx">
 								        <asp:Image ID="Image2" ImageUrl="~/Contents/image/scadd.gif" runat="server" />
 							        </button>
 							    </span>

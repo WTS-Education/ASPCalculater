@@ -91,6 +91,14 @@ div.btn {
     cursor: pointer;
 }
 
+.startTimeError {
+    color:red;
+}
+
+.endTimeError {
+    color:red;
+}
+
 span.radio_01 {
     background-color: #0000FF;
     margin: 2px 2px 1px 1px;

@@ -67,6 +67,24 @@ namespace WebApplication1 {
         protected global::System.Web.UI.WebControls.Button Return;
         
         /// <summary>
+        /// StartTimeError コントロール。
+        /// </summary>
+        /// <remarks>
+        /// 自動生成されたフィールド。
+        /// 変更するには、フィールドの宣言をデザイナー ファイルから分離コード ファイルに移動します。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label StartTimeError;
+        
+        /// <summary>
+        /// EndTimeError コントロール。
+        /// </summary>
+        /// <remarks>
+        /// 自動生成されたフィールド。
+        /// 変更するには、フィールドの宣言をデザイナー ファイルから分離コード ファイルに移動します。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label EndTimeError;
+        
+        /// <summary>
         /// Label1 コントロール。
         /// </summary>
         /// <remarks>

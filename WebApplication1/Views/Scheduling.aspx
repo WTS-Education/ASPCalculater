@@ -67,8 +67,8 @@
 		</td>
 		</tr>
 		</table><br>
-
-
+            <asp:Label ID="StartTimeError" runat="server" Text="" CssClass="startTimeError"></asp:Label>
+            <asp:Label ID="EndTimeError" runat="server" Text="" CssClass="endTimeError"></asp:Label>
 		<table border="1">
 			<colgroup span="1" class="tableHeading"></colgroup>
 			<colgroup span="1" class="tableContent"></colgroup>
@@ -97,8 +97,8 @@
 				<!-- 開始月 -->
 				<select name="startMonth">
                     <% for (int month = 1; month <= 12; month++) { %>                    
-                        <%  if (month ==  yearAndMonth[1]) { %>
-							<option value="<%= month %>" selected><%= month %>月</option>
+                        <%  if (month == yearAndMonth[1]) { %>
+							<option value="<%= startTime[1] %>" selected="selected"><%= month %>月</option>
                         <% } else { %>
 							<option value="<%= month %>"><%= month %>月</option>
                         <% } %>
@@ -106,12 +106,8 @@
 				</select>
 				<!-- 開始日 -->
 				<select name="startDay">
-                    <% for (int day = 1; day <= yearAndMonth[2]; day++) { %>                       
-                        <% if (Session["selectedDay"] != null && day == (int)Session["selectedDay"]) { %>
-							<option value="<%= day %>" selected><%= day %>日</option>
-                        <% } else { %>
+                    <% for (int day = 1; day <= yearAndMonth[2]; day++) { %>  
                             <option value="<%= day %>"><%= day %>日</option>
-                        <% } %>                    
                     <% } %>
 				</select>
 				<!-- 開始時 -->
@@ -130,7 +126,11 @@
 				<select name="startMinute">
                     <option value="未設定">未設定</option>
                     <%for (int minute = 0; minute <= 45; minute += 15) { %>
-                        <option value="<%= minute %>"><%= minute %></option>
+                        <% if (minute == 0) { %>
+                            <option value="<%= minute %>" selected="selected">00</option>
+                        <% } else { %>
+                            <option value="<%= minute %>"><%= minute %></option>
+                        <% } %>
                     <% } %>
 				</select>分　
 			</tr>
@@ -184,7 +184,11 @@
 				<select name="endMinute">
                     <option value="未設定">未設定</option>
                     <%for (int minute = 0; minute <= 45; minute += 15) { %>
-                    <option value="<%= minute %>"><%= minute %></option>
+                        <% if (minute == 0) { %>
+                            <option value="<%= minute %>" selected="selected">00</option>
+                        <% } else { %>
+                            <option value="<%= minute %>"><%= minute %></option>
+                        <% } %>
                     <% } %>
 				</select>分  期間：一日間
 				
@@ -193,9 +197,7 @@
 			<tr>
 				<th>タイトル<span style="color:red">※</span></th>
 				<td class="auto-style1">
-			    <%  %>
-                    <asp:TextBox ID="Title" runat="server"></asp:TextBox>
-			    
+                    <asp:TextBox ID="Title" runat="server" MaxLength="50"></asp:TextBox>
                 </td>
 			</tr>
 
@@ -225,7 +227,7 @@
 			<tr>
 				<th class="auto-style5">内容</th>
 				<td class="auto-style6">
-                    <asp:TextBox ID="Description" TextMode="MultiLine" runat="server" CssClass="auto-style7" Height="108px" Width="486px"></asp:TextBox>
+                    <asp:TextBox ID="Description" TextMode="MultiLine" runat="server" CssClass="auto-style7" Height="108px" Width="486px" MaxLength="1000"></asp:TextBox>
                     <br>
 					MAX1000文字</td>
 			</tr>
@@ -233,7 +235,7 @@
 			<tr>
 				<th class="auto-style8">備考</th>
 				<td class="auto-style9">
-                    <asp:TextBox ID="Note" TextMode="MultiLine" runat="server" Height="101px" Width="493px"></asp:TextBox>
+                    <asp:TextBox ID="Note" TextMode="MultiLine" runat="server" Height="101px" Width="493px" MaxLength="1000"></asp:TextBox>
                     <br>
 					MAX1000文字</td>
 			</tr>

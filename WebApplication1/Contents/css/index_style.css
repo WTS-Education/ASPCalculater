@@ -1,46 +1,7 @@
 ﻿@charset "UTF-8";
 
-body {
-    background: #EE817B;
-}
 
-div.form_block_parent {
-    background-color: #FFB2AE;
-    position: relative;
-    height: 765px;
-}
 
-div.form_block_child {
-    background-color: #FCECEA;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    height: 300px;
-    width: 300px;
-    text-align: center;
-    padding: 30px;
-}
-
-div.form_block_grandchild {
-    padding: 75px;
-    text-align: center;
-}
-
-div.loginId {
-    font-size: 19px;
-    font-family: 'Impact',sans-serif;
-    letter-spacing: 0.1em
-}
-
-div.password {
-    font-size: 19px;
-    font-family: 'Impact',sans-serif;
-    letter-spacing: 0.1em
-}
-
-div.loginBtn {
-    font-family: 'Impact',sans-serif;
+.errorMessage {
+    color:red;
 }
