@@ -64,9 +64,9 @@
                         %>
                             <td class="dayOfMonth">
 							    <span class="btn">
-                                    <button type="submit" runat="server" name="selectedDay" value="<%= day %>" class="schedule_btn" formaction="Scheduling.aspx">
-								        <asp:Image ID="Image2" ImageUrl="~/Contents/image/scadd.gif" runat="server" />
-							        </button>
+                                    <a href="Scheduling.aspx?day=<%= day %>">
+                                        <asp:Image ID="ScAddImage" ImageUrl="~/Contents/image/scadd.gif" runat="server" />
+                                    </a>
 							    </span>
                                 <%= day %>
                                 <br><br>
@@ -74,30 +74,34 @@
                                     { %>
                                        <%  schedule = scheduleList[i];
                                            if (yearAndMonth[0] == schedule.startDateTime.Year && yearAndMonth[1] == schedule.startDateTime.Month && day == schedule.startDateTime.Day) {%>
+                                            <%  string startMinute; string endMinute;
+                                                if (schedule.startDateTime.Minute == 0) { startMinute = "00"; } else { startMinute = schedule.startDateTime.Minute.ToString(); }
+                                                if (schedule.endDateTime.Minute == 0) { endMinute = "00"; } else { endMinute = schedule.endDateTime.Minute.ToString(); }
+                                                %>
                                             <% if (schedule.titleColor == 0)
                                                 {%>
                                                 <a href="Scheduling.aspx?id=<%= schedule.scheduleId %>" class="blueLink">
-                                                    <%= schedule.startDateTime.Hour %>:<%= schedule.startDateTime.Minute %>~<%= schedule.endDateTime.Hour  %>:<%= schedule.endDateTime.Minute %><br>
+                                                    <%= schedule.startDateTime.Hour %>:<%= startMinute %>~<%= schedule.endDateTime.Hour  %>:<%= endMinute %><br>
                                                     <%= schedule.title %>
                                                 </a>
                                             <% }else if (schedule.titleColor == 1){ %>
                                                 <a href="Scheduling.aspx?id=<%= schedule.scheduleId %>" class="redLink">
-                                                    <%= schedule.startDateTime.Hour %>:<%= schedule.startDateTime.Minute %>~<%= schedule.endDateTime.Hour  %>:<%= schedule.endDateTime.Minute %><br>
+                                                    <%= schedule.startDateTime.Hour %>:<%= startMinute %>~<%= schedule.endDateTime.Hour  %>:<%= endMinute %><br>
                                                     <%= schedule.title %>
                                                 </a>
                                             <% }else if (schedule.titleColor == 2){ %>
                                                 <a href="Scheduling.aspx?id=<%= schedule.scheduleId %>" class="greenLink">
-                                                    <%= schedule.startDateTime.Hour %>:<%= schedule.startDateTime.Minute %>~<%= schedule.endDateTime.Hour  %>:<%= schedule.endDateTime.Minute %><br>
+                                                    <%= schedule.startDateTime.Hour %>:<%= startMinute %>~<%= schedule.endDateTime.Hour  %>:<%= endMinute %><br>
                                                     <%= schedule.title %>
                                                 </a>
                                             <% }else if (schedule.titleColor == 3){ %>
                                                 <a href="Scheduling.aspx?id=<%= schedule.scheduleId %>" class="orangeLink">
-                                                    <%= schedule.startDateTime.Hour %>:<%= schedule.startDateTime.Minute %>~<%= schedule.endDateTime.Hour  %>:<%= schedule.endDateTime.Minute %><br>
+                                                    <%= schedule.startDateTime.Hour %>:<%= startMinute %>~<%= schedule.endDateTime.Hour  %>:<%= endMinute %><br>
                                                     <%= schedule.title %>
                                                 </a>
                                             <% }else if (schedule.titleColor == 4){ %>
                                                 <a href="Scheduling.aspx?id=<%= schedule.scheduleId %>" class="blackLink">
-                                                    <%= schedule.startDateTime.Hour %>:<%= schedule.startDateTime.Minute %>~<%= schedule.endDateTime.Hour  %>:<%= schedule.endDateTime.Minute %><br>
+                                                    <%= schedule.startDateTime.Hour %>:<%= startMinute %>~<%= schedule.endDateTime.Hour  %>:<%= endMinute %><br>
                                                     <%= schedule.title %>
                                                 </a>
                                             <% } %>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -10,50 +11,59 @@ namespace WebApplication1
 {
     public partial class Scheduling : System.Web.UI.Page
     {
+        public int? selectedDay;
+
         public int? scheduleId;
-        public int[] startTime = new int[5];
-        public int[] endTime = new int[5];
-        public string title;
-        public int titleColor;
-        public string description;
-        public string note;
+        public int[] existingStartTime = new int[5];
+        public int[] existingEndTime = new int[5];
+        public string existingTitle;
+        public int existingTitleColor;
+        public string existingDescription;
+        public string existingNote;
         
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Request["day"] != null)
+            {
+            selectedDay = int.Parse(Request["day"]);
+            }
+
             if (Request["id"] != null)
             {
                 scheduleId = int.Parse(Request["id"]);
-                Session["scheduleId"] = scheduleId;
+                
                 SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connection"].ToString());
                 try
                 {
                     con.Open();
-                    string query = "select * from T_SCHEDULE where SCHEDULE_ID = " + scheduleId;
+                    string query = "select START_TIMESTAMP, END_TIMESTAMP,TITLE, TITLE_COLOR, DESCRIPTION, NOTE" +
+                        " from T_SCHEDULE where SCHEDULE_ID = " + scheduleId;
                     SqlCommand cmd = new SqlCommand(query, con);
                     SqlDataReader sdr = cmd.ExecuteReader();
 
-                    if (sdr.HasRows)
-                    {
                         while (sdr.Read())
                         {
-                            DateTime startDateTime = (DateTime)sdr["START_TIMESTMP"];
-                            startTime[0] = startDateTime.Year;
-                            startTime[1] = startDateTime.Month;
-                            startTime[2] = startDateTime.Day;
-                            startTime[3] = startDateTime.Hour;
-                            startTime[4] = startDateTime.Minute;
-                            DateTime endDateTime = (DateTime)sdr["END_TIMESTMP"];
-                            endTime[0] = endDateTime.Year;
-                            endTime[1] = endDateTime.Month;
-                            endTime[2] = endDateTime.Day;
-                            endTime[3] = endDateTime.Hour;
-                            endTime[4] = endDateTime.Minute;
-                            title = (string)sdr["TITLE"];
-                            titleColor = (int)sdr["TITLE_COLOR"];
-                            description = (string)sdr["DESCRIPTION"];
-                            note = (string)sdr["NOTE"];
+                            DateTime startDateTime = (DateTime)sdr["START_TIMESTAMP"];
+                            existingStartTime[0] = startDateTime.Year;
+                            existingStartTime[1] = startDateTime.Month;
+                            existingStartTime[2] = startDateTime.Day;
+                            existingStartTime[3] = startDateTime.Hour;
+                            existingStartTime[4] = startDateTime.Minute;
+                            DateTime endDateTime = (DateTime)sdr["END_TIMESTAMP"];
+                            existingEndTime[0] = endDateTime.Year;
+                            existingEndTime[1] = endDateTime.Month;
+                            existingEndTime[2] = endDateTime.Day;
+                            existingEndTime[3] = endDateTime.Hour;
+                            existingEndTime[4] = endDateTime.Minute;
+                            existingTitle = (string)sdr["TITLE"];
+                            existingTitleColor = (int)sdr["TITLE_COLOR"];
+                            existingDescription = (string)sdr["DESCRIPTION"];
+                            existingNote = (string)sdr["NOTE"];
+
+                            Title.Text = existingTitle;
+                            Description.Text = existingDescription;
+                            Note.Text = existingNote;
                         }
-                    }
                 }
                 catch (Exception ex)
                 {
@@ -67,7 +77,9 @@ namespace WebApplication1
             else
             {
             }
+
             
+
             Label1.Text = (string)Session["userName"];
             Label2.Text = (string)Session["userName"];
         }
@@ -78,7 +90,7 @@ namespace WebApplication1
         }
 
         /**
-        * 登録ボタンクリック→スケジュール登録→登録完了ページ
+        * 登録又は更新ボタン押下時
         **/
         protected void Insert_Click(object sender, EventArgs e)
         {
@@ -88,6 +100,7 @@ namespace WebApplication1
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connection"].ToString());
             SqlCommand cmd;
             SqlDataAdapter adapter = new SqlDataAdapter();
+
             string buttonId = ((Button)sender).ID;
             string id = buttonId;
             int startYear = Convert.ToInt32(Request["startYear"]);
@@ -102,6 +115,29 @@ namespace WebApplication1
             int endOclock = int.Parse(Request["endOclock"]);
             int endMinute = int.Parse(Request["endMinute"]);
 
+            string title = Title.Text;
+            if (title.Contains("'"))
+            {
+                title = Regex.Replace(title, "'", "''");
+            }
+
+            int titleColor = int.Parse(Request["titleColor"]);
+
+            string description = Description.Text;
+            if (description.Contains("'"))
+            {
+                description = Regex.Replace(description, "'", "''");
+            }
+
+            string note = Note.Text;
+            if (note.Contains("'"))
+            {
+                note = Regex.Replace(note, "'", "''");
+            }
+
+            int insertOrUpdateUser = (int)Session["userId"];
+            int editAuthority = insertOrUpdateUser;
+
             if (startDay <= DateTime.DaysInMonth(startYear, startMonth) && endDay <= DateTime.DaysInMonth(endYear, endMonth))
             {
                 try
@@ -110,21 +146,11 @@ namespace WebApplication1
                     DateTime endTime = new DateTime(endYear, endMonth, endDay, endOclock, endMinute, 00, 00);
                     DateTime now = DateTime.Now;
 
-                    string title = Title.Text;
-
-                    int titleColor = int.Parse(Request["titleColor"]);
-
-                    string description = Description.Text;
-
-                    string note = Note.Text;
-
-                    int insertOrUpdateUser = (int)Session["userId"];
-                    int editAuthority = insertOrUpdateUser;
-
                     con.Open();
+                    //登録ボタン押下時
                     if (buttonId == "Insert")
                     {
-                        //sql文
+                        //INSERT SQL文
                         string insertQuery = "INSERT INTO T_SCHEDULE (" +
                         "START_TIMESTAMP, END_TIMESTAMP, TITLE, TITLE_COLOR, DESCRIPTION, NOTE, " +
                         "EDIT_AUTHORITY, RELEASE_FLG, INSERT_DATE, INSERT_USER, DELETE_FLG " +
@@ -142,6 +168,7 @@ namespace WebApplication1
                         adapter.InsertCommand.ExecuteNonQuery();
                         cmd.Dispose();
                     }
+                    //更新ボタン押下時
                     else if (buttonId == "Update")
                     {
                         Update_Click(con, adapter, startTime, endTime, title,
@@ -160,6 +187,7 @@ namespace WebApplication1
                 }
             } else
             {
+                //存在しない日付が選択された場合(EX.2月31日)
                 if (DateTime.DaysInMonth(startYear, startMonth) < startDay)
                 {
                     StartTimeError.Text = "[開始日]は存在しない日付です。正しい日付を入力してください。";
@@ -169,16 +197,15 @@ namespace WebApplication1
                     EndTimeError.Text = "[終了日]は存在しない日付です。正しい日付を入力してください。";
                 }
             }
-            
-
         }
         /**
-         *   更新ボタンクリック→スケジュール更新→更新完了ページ
+         *  　スケジュール更新
          **/
         protected void Update_Click(SqlConnection con, SqlDataAdapter adapter, DateTime startTime, DateTime endTime,
             string title, int titleColor, string description, string note, int editAuthority)
         {
             DateTime updateTime = DateTime.Now;
+            //UPDATE SQL文
             string updateQuery = "UPDATE T_SCHEDULE SET START_TIMESTAMP = " + "'" + startTime + "', " +
                 "END_TIMESTAMP = " + "'" + endTime + "', " + "TITLE = " + "'" + title + "', " + "TITLE_COLOR = " + "'" +
                 titleColor + "', " + "DESCRIPTION = " + "'" + description + "', " + "NOTE = " + "'" + note + "', " +
@@ -196,6 +223,7 @@ namespace WebApplication1
          **/
         protected void Delete_Click(object sender, EventArgs e)
         {
+            Session["scheduleId"] = scheduleId;
             Server.Transfer("~/Views/DeleteCheck.aspx");
         }
     }

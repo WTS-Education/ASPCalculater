@@ -12,7 +12,7 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <asp:Label ID="Label1" runat="server" Text="" CssClass="errorMessage"></asp:Label><br />
+            <asp:Label ID="Label1" runat="server" Text="" CssClass="errorMessage"></asp:Label><br/>
             ログインID : <asp:TextBox ID="LoginId" runat="server"></asp:TextBox>
             <br />
             <br />
