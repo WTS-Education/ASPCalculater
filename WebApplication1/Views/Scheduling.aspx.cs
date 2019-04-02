@@ -21,6 +21,9 @@ namespace WebApplication1
         public string existingDescription;
         public string existingNote;
         
+        /**
+         *  ページ読み込み時
+         **/
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request["day"] != null)
@@ -55,15 +58,51 @@ namespace WebApplication1
                             existingEndTime[2] = endDateTime.Day;
                             existingEndTime[3] = endDateTime.Hour;
                             existingEndTime[4] = endDateTime.Minute;
+                            
                             existingTitle = (string)sdr["TITLE"];
-                            existingTitleColor = (int)sdr["TITLE_COLOR"];
-                            existingDescription = (string)sdr["DESCRIPTION"];
-                            existingNote = (string)sdr["NOTE"];
+                            if (existingTitle.Contains("&"))
+                            {
+                                existingTitle = Regex.Replace(existingTitle, "&", "&amp;");
+                            }
+                            if (existingTitle.Contains("\""))
+                            {
+                                existingTitle = Regex.Replace(existingTitle, "\"", "&quot;");
+                            }
+                            if (existingTitle.Contains("'"))
+                            {
+                                existingTitle = Regex.Replace(existingTitle, "'", "&#39;");
+                            }
 
-                            Title.Text = existingTitle;
-                            Description.Text = existingDescription;
-                            Note.Text = existingNote;
-                        }
+                            existingTitleColor = (int)sdr["TITLE_COLOR"];
+
+                            existingDescription = (string)sdr["DESCRIPTION"];
+                            if (existingDescription.Contains("&"))
+                            {
+                                existingDescription = Regex.Replace(existingDescription, "&", "&amp;");
+                            }
+                            if (existingDescription.Contains("\""))
+                            {
+                                existingDescription = Regex.Replace(existingDescription, "\"", "&quot;");
+                            }
+                            if (existingDescription.Contains("'"))
+                            {
+                                existingDescription = Regex.Replace(existingDescription, "'", "&#39;");
+                            }
+
+                            existingNote = (string)sdr["NOTE"];
+                            if (existingNote.Contains("&"))
+                            {
+                            existingNote = Regex.Replace(existingNote, "&", "&amp;");
+                            }
+                            if (existingNote.Contains("\""))
+                            {
+                            existingNote = Regex.Replace(existingNote, "\"", "&quot;");
+                            }
+                            if (existingNote.Contains("'"))
+                            {
+                            existingNote = Regex.Replace(existingNote, "'", "&#39;");
+                            }
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -78,10 +117,9 @@ namespace WebApplication1
             {
             }
 
-            
-
             Label1.Text = (string)Session["userName"];
             Label2.Text = (string)Session["userName"];
+            
         }
 
         protected void Return_Click(object sender, EventArgs e)
@@ -115,7 +153,7 @@ namespace WebApplication1
             int endOclock = int.Parse(Request["endOclock"]);
             int endMinute = int.Parse(Request["endMinute"]);
 
-            string title = Title.Text;
+            string title = Request["title"];
             if (title.Contains("'"))
             {
                 title = Regex.Replace(title, "'", "''");
@@ -123,13 +161,13 @@ namespace WebApplication1
 
             int titleColor = int.Parse(Request["titleColor"]);
 
-            string description = Description.Text;
+            string description = Request["description"];
             if (description.Contains("'"))
             {
                 description = Regex.Replace(description, "'", "''");
             }
 
-            string note = Note.Text;
+            string note = Request["note"];
             if (note.Contains("'"))
             {
                 note = Regex.Replace(note, "'", "''");

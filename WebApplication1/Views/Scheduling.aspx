@@ -129,8 +129,8 @@
                         <% if (scheduleId != null && oclock == existingStartTime[3])
                             { %>
                             <option value="<%= oclock %>" selected="selected"><%= oclock %></option>
-                        <% } else if (oclock == 9) {%>
-                            <option value="<%= oclock %>" selected="selected"><%= oclock %></option>
+                        <% } else if (scheduleId == null && oclock == 9) {%>
+                            <option value="<%= oclock %>" selected="selected">9</option>
                         <% } else { %>
                             <option value="<%= oclock %>"><%= oclock %></option>
                         <% } %>
@@ -205,8 +205,8 @@
                         <% if (scheduleId != null && endOclock == existingEndTime[3])
                             { %>
                             <option value="<%= endOclock %>" selected="selected"><%= endOclock %></option>
-                        <% } else if (endOclock == 18) {%>
-                            <option value="<%= endOclock %>" selected="selected"><%= endOclock %></option>
+                        <% } else if (scheduleId == null && endOclock == 18) {%>
+                            <option value="<%= endOclock %>" selected="selected">18</option>
                         <% } else { %>
                             <option value="<%= endOclock %>"><%= endOclock %></option>
                         <% } %>
@@ -236,7 +236,7 @@
 			<tr>
 				<th>タイトル<span style="color:red">※</span></th>
 				<td class="auto-style1">
-                    <asp:TextBox ID="Title" runat="server" Text="" MaxLength="50"></asp:TextBox>
+                    <input type="text" name="title" value="<%= existingTitle %>" maxlength="50" />
                 </td>
 			</tr>
 
@@ -266,7 +266,7 @@
 			<tr>
 				<th class="auto-style5">内容</th>
 				<td class="auto-style6">
-                    <asp:TextBox ID="Description" Text="" TextMode="MultiLine" runat="server" CssClass="auto-style7" Height="108px" Width="486px" MaxLength="1000"></asp:TextBox>
+                    <textarea name="description" rows="8" cols="50" maxlength="1000"><%= existingDescription %></textarea>
                     <br>
 					MAX1000文字</td>
 			</tr>
@@ -274,7 +274,7 @@
 			<tr>
 				<th class="auto-style8">備考</th>
 				<td class="auto-style9">
-                    <asp:TextBox ID="Note" Text="" TextMode="MultiLine" runat="server" Height="101px" Width="493px" MaxLength="1000"></asp:TextBox>
+                    <textarea name="note" rows="8" cols="50" maxlength="1000"><%= existingNote %></textarea>
                     <br>
 					MAX1000文字</td>
 			</tr>
