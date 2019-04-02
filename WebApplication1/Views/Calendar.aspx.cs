@@ -5,14 +5,14 @@ using System.Data.SqlClient;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Linq;
 
 namespace WebApplication1
 {
     public partial class WebForm3 : System.Web.UI.Page
     {
-        public List<T_SCHEDULE> scheduleList;
         public T_SCHEDULE schedule;
-
+        public List<T_SCHEDULE> scheduleList = new List<T_SCHEDULE>();
         /**
          *  カレンダーページロード 
          **/
@@ -123,50 +123,15 @@ namespace WebApplication1
 
             /* 日付配列をセッションスコープに格納 */
             Session["dayListDividedBy5or6weeks"] = dayListDividedBy5or6weeks;
-
+            
             //スケジュール検索
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connection"].ToString());
-            try
+            string basedir = AppDomain.CurrentDomain.BaseDirectory;
+            var db = new DataClasses1DataContext(ConfigurationManager.ConnectionStrings["connection"].ToString());
+            var allSchedule = from schedule in db.T_SCHEDULE
+                              select schedule;
+            foreach (var schedule in allSchedule)
             {
-                con.Open();
-                string query = "select * from T_SCHEDULE";
-                SqlCommand cmd = new SqlCommand(query, con);
-                SqlDataReader sdr = cmd.ExecuteReader();
-                scheduleList = new List<T_SCHEDULE>();
-
-                if (sdr.HasRows)
-                {
-                    while (sdr.Read())
-                    {
-                        int scheduleId = (int)sdr["SCHEDULE_ID"];
-
-                        int titleColor = (int)sdr["TITLE_COLOR"];
-                        string title = (string)sdr["TITLE"];
-                        
-                        string description = (string)sdr["DESCRIPTION"];
-                        string note = (string)sdr["NOTE"];
-                        DateTime start = (DateTime)sdr["START_TIMESTAMP"];
-                        DateTime end = (DateTime)sdr["END_TIMESTAMP"];
-
-                        T_SCHEDULE schedule = new T_SCHEDULE();
-                        schedule.scheduleId = scheduleId;
-                        schedule.titleColor = titleColor;
-                        schedule.title = title;
-                        schedule.description = description;
-                        schedule.note = note;
-                        schedule.startDateTime = start;
-                        schedule.endDateTime = end;
-                        scheduleList.Add(schedule);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Response.Write(ex.Message);
-            }
-            finally
-            {
-                con.Close();
+                scheduleList.Add(schedule);
             }
         }
 

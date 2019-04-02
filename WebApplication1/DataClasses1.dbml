@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="WTS_EDUCATE" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=WTS-SERVER01;Initial Catalog=WTS_EDUCATE;Persist Security Info=True;User ID=kohari.junichirou" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="connection" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.M_User" Member="M_User">
+    <Type Name="M_User">
+      <Column Name="USER_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LOGIN_ID" Type="System.String" DbType="VarChar(70) NOT NULL" CanBeNull="false" />
+      <Column Name="PASSWORD" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="EMPLOYEE_NUM" Type="System.String" DbType="Char(4) NOT NULL" CanBeNull="false" />
+      <Column Name="USER_NAME" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="USER_NAME_KANA" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="POSITION" Type="System.String" DbType="VarChar(320)" CanBeNull="true" />
+      <Column Name="BIRTHDAY" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="INSERT_DATE" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="INSERT_USER" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UPDATE_DATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UPDATE_USER" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DELETE_DATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DELETE_USER" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DELETE_FLG" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.T_SCHEDULE" Member="T_SCHEDULE">
+    <Type Name="T_SCHEDULE">
+      <Column Name="SCHEDULE_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="START_TIMESTAMP" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="END_TIMESTAMP" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TITLE" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="TITLE_COLOR" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DESCRIPTION" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="NOTE" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="EDIT_AUTHORITY" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RELEASE_FLG" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Column Name="INSERT_DATE" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="INSERT_USER" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UPDATE_DATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UPDATE_USER" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DELETE_DATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DELETE_USER" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DELETE_FLG" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

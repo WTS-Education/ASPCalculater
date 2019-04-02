@@ -283,6 +283,7 @@
 				<th class="auto-style3">登録者</th>
 				<td class="auto-style4">
                     <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
+                    <asp:LinqDataSource ID="LinqDataSource1" runat="server"></asp:LinqDataSource>
                 </td>
 			</tr>
 
