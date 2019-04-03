@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Linq;
 
 namespace WebApplication1.Views
 {
@@ -17,29 +18,50 @@ namespace WebApplication1.Views
 
         protected void Yes_Click(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connection"].ToString());
+            int scheduleId = (int)Session["scheduleId"];
+
+            var db = new DataClasses1DataContext(ConfigurationManager.ConnectionStrings["connection"].ToString());
+            var existingSchedule =
+                from schedule in db.T_SCHEDULE
+                where schedule.SCHEDULE_ID == scheduleId
+                select schedule;
+            foreach(var schedule in existingSchedule)
+            {
+                db.T_SCHEDULE.DeleteOnSubmit(schedule);
+            }
             try
             {
-                SqlCommand cmd;
-                SqlDataAdapter adapter = new SqlDataAdapter();
-                int scheduleId = (int)Session["scheduleId"];
-                con.Open();
-                string deleteQuery = "DELETE FROM T_SCHEDULE WHERE SCHEDULE_ID = " + scheduleId + ";";
-                cmd = new SqlCommand(deleteQuery, con);
-                adapter.DeleteCommand = new SqlCommand(deleteQuery, con);
-                adapter.DeleteCommand.ExecuteNonQuery();
-                cmd.Dispose();
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception.Message);
-                throw;
-            }
-            finally
-            {
-                con.Close();
+                db.SubmitChanges();
                 Server.Transfer("~/Views/DeletingIsOk.aspx");
             }
+            catch (Exception deleteError)
+            {
+                DeleteError.Text = "削除エラーが発生しました";
+            }
+
+            //SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connection"].ToString());
+            //try
+            //{
+            //    SqlCommand cmd;
+            //    SqlDataAdapter adapter = new SqlDataAdapter();
+                
+            //    con.Open();
+            //    string deleteQuery = "DELETE FROM T_SCHEDULE WHERE SCHEDULE_ID = " + scheduleId + ";";
+            //    cmd = new SqlCommand(deleteQuery, con);
+            //    adapter.DeleteCommand = new SqlCommand(deleteQuery, con);
+            //    adapter.DeleteCommand.ExecuteNonQuery();
+            //    cmd.Dispose();
+            //}
+            //catch (Exception exception)
+            //{
+            //    Console.WriteLine(exception.Message);
+            //    throw;
+            //}
+            //finally
+            //{
+            //    con.Close();
+            //    Server.Transfer("~/Views/DeletingIsOk.aspx");
+            //}
             
         }
 

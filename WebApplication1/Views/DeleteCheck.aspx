@@ -13,6 +13,7 @@
 		<br>
 		<div>スケジュールを削除しますか？</div>
         <br>
+        <asp:Label ID="DeleteError" runat="server" Text=""></asp:Label>
         <asp:Button ID="Yes" runat="server" Text="はい" OnClick="Yes_Click" />
         <asp:Button ID="No" runat="server" Text="いいえ" OnClick="No_Click" />
 		<br>

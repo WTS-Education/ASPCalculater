@@ -59,6 +59,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Contents\image\calendar.gif" />
     <Content Include="DataClasses1.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>DataClasses1.designer.cs</LastGenOutput>
@@ -68,6 +69,11 @@
       <DependentUpon>DataClasses1.dbml</DependentUpon>
     </None>
     <None Include="packages.config" />
+    <None Include="Scripts\jquery-1.12.4.intellisense.js" />
+    <Content Include="Js\jquery1.12.4.js" />
+    <Content Include="Scripts\jquery-1.12.4.js" />
+    <Content Include="Scripts\jquery-1.12.4.min.js" />
+    <Content Include="Scripts\jquery-1.12.4.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -93,6 +99,7 @@
     <Content Include="Contents\image\header_schedule_01.gif" />
     <Content Include="Contents\image\scadd.gif" />
     <Content Include="Contents\image\today_btn_bg.gif" />
+    <Content Include="Js\Scheduling_javascript.js" />
     <Content Include="Views\DeleteCheck.aspx" />
     <Content Include="Views\DeletingIsOk.aspx" />
     <Content Include="Views\Index.aspx" />

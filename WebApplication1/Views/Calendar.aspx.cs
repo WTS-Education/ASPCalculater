@@ -125,7 +125,6 @@ namespace WebApplication1
             Session["dayListDividedBy5or6weeks"] = dayListDividedBy5or6weeks;
             
             //スケジュール検索
-            string basedir = AppDomain.CurrentDomain.BaseDirectory;
             var db = new DataClasses1DataContext(ConfigurationManager.ConnectionStrings["connection"].ToString());
             var allSchedule = from schedule in db.T_SCHEDULE
                               select schedule;

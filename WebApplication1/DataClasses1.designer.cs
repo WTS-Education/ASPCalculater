@@ -36,6 +36,9 @@ namespace WebApplication1
     partial void InsertT_SCHEDULE(T_SCHEDULE instance);
     partial void UpdateT_SCHEDULE(T_SCHEDULE instance);
     partial void DeleteT_SCHEDULE(T_SCHEDULE instance);
+    partial void InsertM_TITLE_COLOR(M_TITLE_COLOR instance);
+    partial void UpdateM_TITLE_COLOR(M_TITLE_COLOR instance);
+    partial void DeleteM_TITLE_COLOR(M_TITLE_COLOR instance);
     #endregion
 		
 		public DataClasses1DataContext() : 
@@ -83,6 +86,14 @@ namespace WebApplication1
 				return this.GetTable<T_SCHEDULE>();
 			}
 		}
+		
+		public System.Data.Linq.Table<M_TITLE_COLOR> M_TITLE_COLOR
+		{
+			get
+			{
+				return this.GetTable<M_TITLE_COLOR>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.M_User")]
@@ -120,6 +131,10 @@ namespace WebApplication1
 		private System.Nullable<int> _DELETE_USER;
 		
 		private char _DELETE_FLG;
+		
+		private EntitySet<M_TITLE_COLOR> _M_TITLE_COLOR;
+		
+		private EntitySet<T_SCHEDULE> _T_SCHEDULE;
 		
     #region 拡張メソッドの定義
     partial void OnLoaded();
@@ -159,6 +174,8 @@ namespace WebApplication1
 		
 		public M_User()
 		{
+			this._M_TITLE_COLOR = new EntitySet<M_TITLE_COLOR>(new Action<M_TITLE_COLOR>(this.attach_M_TITLE_COLOR), new Action<M_TITLE_COLOR>(this.detach_M_TITLE_COLOR));
+			this._T_SCHEDULE = new EntitySet<T_SCHEDULE>(new Action<T_SCHEDULE>(this.attach_T_SCHEDULE), new Action<T_SCHEDULE>(this.detach_T_SCHEDULE));
 			OnCreated();
 		}
 		
@@ -462,6 +479,32 @@ namespace WebApplication1
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="M_User_M_TITLE_COLOR", Storage="_M_TITLE_COLOR", ThisKey="USER_ID", OtherKey="INSERT_USER")]
+		public EntitySet<M_TITLE_COLOR> M_TITLE_COLOR
+		{
+			get
+			{
+				return this._M_TITLE_COLOR;
+			}
+			set
+			{
+				this._M_TITLE_COLOR.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="M_User_T_SCHEDULE", Storage="_T_SCHEDULE", ThisKey="USER_ID", OtherKey="INSERT_USER")]
+		public EntitySet<T_SCHEDULE> T_SCHEDULE
+		{
+			get
+			{
+				return this._T_SCHEDULE;
+			}
+			set
+			{
+				this._T_SCHEDULE.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -480,6 +523,30 @@ namespace WebApplication1
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_M_TITLE_COLOR(M_TITLE_COLOR entity)
+		{
+			this.SendPropertyChanging();
+			entity.M_User = this;
+		}
+		
+		private void detach_M_TITLE_COLOR(M_TITLE_COLOR entity)
+		{
+			this.SendPropertyChanging();
+			entity.M_User = null;
+		}
+		
+		private void attach_T_SCHEDULE(T_SCHEDULE entity)
+		{
+			this.SendPropertyChanging();
+			entity.M_User = this;
+		}
+		
+		private void detach_T_SCHEDULE(T_SCHEDULE entity)
+		{
+			this.SendPropertyChanging();
+			entity.M_User = null;
 		}
 	}
 	
@@ -521,6 +588,10 @@ namespace WebApplication1
 		
 		private char _DELETE_FLG;
 		
+		private EntityRef<M_TITLE_COLOR> _M_TITLE_COLOR;
+		
+		private EntityRef<M_User> _M_User;
+		
     #region 拡張メソッドの定義
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -561,6 +632,8 @@ namespace WebApplication1
 		
 		public T_SCHEDULE()
 		{
+			this._M_TITLE_COLOR = default(EntityRef<M_TITLE_COLOR>);
+			this._M_User = default(EntityRef<M_User>);
 			OnCreated();
 		}
 		
@@ -655,6 +728,10 @@ namespace WebApplication1
 			{
 				if ((this._TITLE_COLOR != value))
 				{
+					if (this._M_TITLE_COLOR.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnTITLE_COLORChanging(value);
 					this.SendPropertyChanging();
 					this._TITLE_COLOR = value;
@@ -775,6 +852,10 @@ namespace WebApplication1
 			{
 				if ((this._INSERT_USER != value))
 				{
+					if (this._M_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnINSERT_USERChanging(value);
 					this.SendPropertyChanging();
 					this._INSERT_USER = value;
@@ -884,6 +965,74 @@ namespace WebApplication1
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="M_TITLE_COLOR_T_SCHEDULE", Storage="_M_TITLE_COLOR", ThisKey="TITLE_COLOR", OtherKey="TITLE_COLOR_ID", IsForeignKey=true)]
+		public M_TITLE_COLOR M_TITLE_COLOR
+		{
+			get
+			{
+				return this._M_TITLE_COLOR.Entity;
+			}
+			set
+			{
+				M_TITLE_COLOR previousValue = this._M_TITLE_COLOR.Entity;
+				if (((previousValue != value) 
+							|| (this._M_TITLE_COLOR.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._M_TITLE_COLOR.Entity = null;
+						previousValue.T_SCHEDULE.Remove(this);
+					}
+					this._M_TITLE_COLOR.Entity = value;
+					if ((value != null))
+					{
+						value.T_SCHEDULE.Add(this);
+						this._TITLE_COLOR = value.TITLE_COLOR_ID;
+					}
+					else
+					{
+						this._TITLE_COLOR = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("M_TITLE_COLOR");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="M_User_T_SCHEDULE", Storage="_M_User", ThisKey="INSERT_USER", OtherKey="USER_ID", IsForeignKey=true)]
+		public M_User M_User
+		{
+			get
+			{
+				return this._M_User.Entity;
+			}
+			set
+			{
+				M_User previousValue = this._M_User.Entity;
+				if (((previousValue != value) 
+							|| (this._M_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._M_User.Entity = null;
+						previousValue.T_SCHEDULE.Remove(this);
+					}
+					this._M_User.Entity = value;
+					if ((value != null))
+					{
+						value.T_SCHEDULE.Add(this);
+						this._INSERT_USER = value.USER_ID;
+					}
+					else
+					{
+						this._INSERT_USER = default(int);
+					}
+					this.SendPropertyChanged("M_User");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -902,6 +1051,353 @@ namespace WebApplication1
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.M_TITLE_COLOR")]
+	public partial class M_TITLE_COLOR : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _TITLE_COLOR_ID;
+		
+		private string _TITLE_COLOR_TAG;
+		
+		private string _TITLE_COLOR_CODE;
+		
+		private System.DateTime _INSERT_DATE;
+		
+		private int _INSERT_USER;
+		
+		private System.Nullable<System.DateTime> _UPDATE_DATE;
+		
+		private System.Nullable<int> _UPDATE_USER;
+		
+		private System.Nullable<System.DateTime> _DELETE_DATE;
+		
+		private System.Nullable<int> _DELETE_USER;
+		
+		private char _DELETE_FLG;
+		
+		private EntitySet<T_SCHEDULE> _T_SCHEDULE;
+		
+		private EntityRef<M_User> _M_User;
+		
+    #region 拡張メソッドの定義
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnTITLE_COLOR_IDChanging(int value);
+    partial void OnTITLE_COLOR_IDChanged();
+    partial void OnTITLE_COLOR_TAGChanging(string value);
+    partial void OnTITLE_COLOR_TAGChanged();
+    partial void OnTITLE_COLOR_CODEChanging(string value);
+    partial void OnTITLE_COLOR_CODEChanged();
+    partial void OnINSERT_DATEChanging(System.DateTime value);
+    partial void OnINSERT_DATEChanged();
+    partial void OnINSERT_USERChanging(int value);
+    partial void OnINSERT_USERChanged();
+    partial void OnUPDATE_DATEChanging(System.Nullable<System.DateTime> value);
+    partial void OnUPDATE_DATEChanged();
+    partial void OnUPDATE_USERChanging(System.Nullable<int> value);
+    partial void OnUPDATE_USERChanged();
+    partial void OnDELETE_DATEChanging(System.Nullable<System.DateTime> value);
+    partial void OnDELETE_DATEChanged();
+    partial void OnDELETE_USERChanging(System.Nullable<int> value);
+    partial void OnDELETE_USERChanged();
+    partial void OnDELETE_FLGChanging(char value);
+    partial void OnDELETE_FLGChanged();
+    #endregion
+		
+		public M_TITLE_COLOR()
+		{
+			this._T_SCHEDULE = new EntitySet<T_SCHEDULE>(new Action<T_SCHEDULE>(this.attach_T_SCHEDULE), new Action<T_SCHEDULE>(this.detach_T_SCHEDULE));
+			this._M_User = default(EntityRef<M_User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TITLE_COLOR_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int TITLE_COLOR_ID
+		{
+			get
+			{
+				return this._TITLE_COLOR_ID;
+			}
+			set
+			{
+				if ((this._TITLE_COLOR_ID != value))
+				{
+					this.OnTITLE_COLOR_IDChanging(value);
+					this.SendPropertyChanging();
+					this._TITLE_COLOR_ID = value;
+					this.SendPropertyChanged("TITLE_COLOR_ID");
+					this.OnTITLE_COLOR_IDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TITLE_COLOR_TAG", DbType="VarChar(15) NOT NULL", CanBeNull=false)]
+		public string TITLE_COLOR_TAG
+		{
+			get
+			{
+				return this._TITLE_COLOR_TAG;
+			}
+			set
+			{
+				if ((this._TITLE_COLOR_TAG != value))
+				{
+					this.OnTITLE_COLOR_TAGChanging(value);
+					this.SendPropertyChanging();
+					this._TITLE_COLOR_TAG = value;
+					this.SendPropertyChanged("TITLE_COLOR_TAG");
+					this.OnTITLE_COLOR_TAGChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TITLE_COLOR_CODE", DbType="Char(7) NOT NULL", CanBeNull=false)]
+		public string TITLE_COLOR_CODE
+		{
+			get
+			{
+				return this._TITLE_COLOR_CODE;
+			}
+			set
+			{
+				if ((this._TITLE_COLOR_CODE != value))
+				{
+					this.OnTITLE_COLOR_CODEChanging(value);
+					this.SendPropertyChanging();
+					this._TITLE_COLOR_CODE = value;
+					this.SendPropertyChanged("TITLE_COLOR_CODE");
+					this.OnTITLE_COLOR_CODEChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_INSERT_DATE", DbType="DateTime NOT NULL")]
+		public System.DateTime INSERT_DATE
+		{
+			get
+			{
+				return this._INSERT_DATE;
+			}
+			set
+			{
+				if ((this._INSERT_DATE != value))
+				{
+					this.OnINSERT_DATEChanging(value);
+					this.SendPropertyChanging();
+					this._INSERT_DATE = value;
+					this.SendPropertyChanged("INSERT_DATE");
+					this.OnINSERT_DATEChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_INSERT_USER", DbType="Int NOT NULL")]
+		public int INSERT_USER
+		{
+			get
+			{
+				return this._INSERT_USER;
+			}
+			set
+			{
+				if ((this._INSERT_USER != value))
+				{
+					if (this._M_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnINSERT_USERChanging(value);
+					this.SendPropertyChanging();
+					this._INSERT_USER = value;
+					this.SendPropertyChanged("INSERT_USER");
+					this.OnINSERT_USERChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UPDATE_DATE", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UPDATE_DATE
+		{
+			get
+			{
+				return this._UPDATE_DATE;
+			}
+			set
+			{
+				if ((this._UPDATE_DATE != value))
+				{
+					this.OnUPDATE_DATEChanging(value);
+					this.SendPropertyChanging();
+					this._UPDATE_DATE = value;
+					this.SendPropertyChanged("UPDATE_DATE");
+					this.OnUPDATE_DATEChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UPDATE_USER", DbType="Int")]
+		public System.Nullable<int> UPDATE_USER
+		{
+			get
+			{
+				return this._UPDATE_USER;
+			}
+			set
+			{
+				if ((this._UPDATE_USER != value))
+				{
+					this.OnUPDATE_USERChanging(value);
+					this.SendPropertyChanging();
+					this._UPDATE_USER = value;
+					this.SendPropertyChanged("UPDATE_USER");
+					this.OnUPDATE_USERChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DELETE_DATE", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DELETE_DATE
+		{
+			get
+			{
+				return this._DELETE_DATE;
+			}
+			set
+			{
+				if ((this._DELETE_DATE != value))
+				{
+					this.OnDELETE_DATEChanging(value);
+					this.SendPropertyChanging();
+					this._DELETE_DATE = value;
+					this.SendPropertyChanged("DELETE_DATE");
+					this.OnDELETE_DATEChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DELETE_USER", DbType="Int")]
+		public System.Nullable<int> DELETE_USER
+		{
+			get
+			{
+				return this._DELETE_USER;
+			}
+			set
+			{
+				if ((this._DELETE_USER != value))
+				{
+					this.OnDELETE_USERChanging(value);
+					this.SendPropertyChanging();
+					this._DELETE_USER = value;
+					this.SendPropertyChanged("DELETE_USER");
+					this.OnDELETE_USERChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DELETE_FLG", DbType="Char(1) NOT NULL")]
+		public char DELETE_FLG
+		{
+			get
+			{
+				return this._DELETE_FLG;
+			}
+			set
+			{
+				if ((this._DELETE_FLG != value))
+				{
+					this.OnDELETE_FLGChanging(value);
+					this.SendPropertyChanging();
+					this._DELETE_FLG = value;
+					this.SendPropertyChanged("DELETE_FLG");
+					this.OnDELETE_FLGChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="M_TITLE_COLOR_T_SCHEDULE", Storage="_T_SCHEDULE", ThisKey="TITLE_COLOR_ID", OtherKey="TITLE_COLOR")]
+		public EntitySet<T_SCHEDULE> T_SCHEDULE
+		{
+			get
+			{
+				return this._T_SCHEDULE;
+			}
+			set
+			{
+				this._T_SCHEDULE.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="M_User_M_TITLE_COLOR", Storage="_M_User", ThisKey="INSERT_USER", OtherKey="USER_ID", IsForeignKey=true)]
+		public M_User M_User
+		{
+			get
+			{
+				return this._M_User.Entity;
+			}
+			set
+			{
+				M_User previousValue = this._M_User.Entity;
+				if (((previousValue != value) 
+							|| (this._M_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._M_User.Entity = null;
+						previousValue.M_TITLE_COLOR.Remove(this);
+					}
+					this._M_User.Entity = value;
+					if ((value != null))
+					{
+						value.M_TITLE_COLOR.Add(this);
+						this._INSERT_USER = value.USER_ID;
+					}
+					else
+					{
+						this._INSERT_USER = default(int);
+					}
+					this.SendPropertyChanged("M_User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_T_SCHEDULE(T_SCHEDULE entity)
+		{
+			this.SendPropertyChanging();
+			entity.M_TITLE_COLOR = this;
+		}
+		
+		private void detach_T_SCHEDULE(T_SCHEDULE entity)
+		{
+			this.SendPropertyChanging();
+			entity.M_TITLE_COLOR = null;
 		}
 	}
 }

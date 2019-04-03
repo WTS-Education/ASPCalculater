@@ -12,6 +12,11 @@ span.title_string {
     font-weight: bold;
 }
 
+.title_textbox{
+    width:335px;
+}
+
+
 table {
     border-collapse: collapse;
     border: 2px;
@@ -91,12 +96,19 @@ div.btn {
     cursor: pointer;
 }
 
-.startTimeError {
+.errorMessage{
     color:red;
 }
 
-.endTimeError {
-    color:red;
+input.datepicker_btn {
+    border: solid 1px;
+    BACKGROUND-IMAGE: url(http://localhost:64570/Contents/image/calendar.gif);
+    color: #000000;
+    font-size: 14px !important;
+    font-weight: bold;
+    height: 20px;
+    width: 28px;
+    cursor: pointer;
 }
 
 span.radio_01 {
@@ -138,6 +150,3 @@ label.title_color_text {
     font-size: 85%;
 }
 
-input.title_textbox {
-    width: 419px;
-}

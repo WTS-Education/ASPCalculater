@@ -78,28 +78,28 @@
                                                 if (schedule.START_TIMESTAMP.Minute == 0) { startMinute = "00"; } else { startMinute = schedule.START_TIMESTAMP.Minute.ToString(); }
                                                 if (schedule.END_TIMESTAMP.Minute == 0) { endMinute = "00"; } else { endMinute = schedule.END_TIMESTAMP.Minute.ToString(); }
                                                 %>
-                                            <% if (schedule.TITLE_COLOR == 0)
+                                            <% if (schedule.TITLE_COLOR == 1)
                                                 {%>
                                                 <a href="Scheduling.aspx?id=<%= schedule.SCHEDULE_ID %>" class="blueLink">
                                                     <%= schedule.START_TIMESTAMP.Hour %>:<%= startMinute %>~<%= schedule.END_TIMESTAMP.Hour  %>:<%= endMinute %><br>
                                                     <%= schedule.TITLE %>
                                                 </a>
-                                            <% }else if (schedule.TITLE_COLOR == 1){ %>
+                                            <% }else if (schedule.TITLE_COLOR == 2){ %>
                                                 <a href="Scheduling.aspx?id=<%= schedule.SCHEDULE_ID %>" class="redLink">
                                                     <%= schedule.START_TIMESTAMP.Hour %>:<%= startMinute %>~<%= schedule.END_TIMESTAMP.Hour  %>:<%= endMinute %><br>
                                                     <%= schedule.TITLE %>
                                                 </a>
-                                            <% }else if (schedule.TITLE_COLOR == 2){ %>
+                                            <% }else if (schedule.TITLE_COLOR == 3){ %>
                                                 <a href="Scheduling.aspx?id=<%= schedule.SCHEDULE_ID %>" class="greenLink">
                                                     <%= schedule.START_TIMESTAMP.Hour %>:<%= startMinute %>~<%= schedule.END_TIMESTAMP.Hour  %>:<%= endMinute %><br>
                                                     <%= schedule.TITLE %>
                                                 </a>
-                                            <% }else if (schedule.TITLE_COLOR == 3){ %>
+                                            <% }else if (schedule.TITLE_COLOR == 4){ %>
                                                 <a href="Scheduling.aspx?id=<%= schedule.SCHEDULE_ID %>" class="orangeLink">
                                                     <%= schedule.START_TIMESTAMP.Hour %>:<%= startMinute %>~<%= schedule.END_TIMESTAMP.Hour  %>:<%= endMinute %><br>
                                                     <%= schedule.TITLE %>
                                                 </a>
-                                            <% }else if (schedule.TITLE_COLOR == 4){ %>
+                                            <% }else if (schedule.TITLE_COLOR == 5){ %>
                                                 <a href="Scheduling.aspx?id=<%= schedule.SCHEDULE_ID %>" class="blackLink">
                                                     <%= schedule.START_TIMESTAMP.Hour %>:<%= startMinute %>~<%= schedule.END_TIMESTAMP.Hour  %>:<%= endMinute %><br>
                                                     <%= schedule.TITLE %>

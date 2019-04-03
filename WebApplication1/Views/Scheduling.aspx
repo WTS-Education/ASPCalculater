@@ -8,6 +8,10 @@
     <title>スケジュール</title>
     <link href="../Contents/css/scheduling_style.css"
 	type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <script type="text/javascript" src="../Js/jquery1.12.4.js"></script>
+    <script type="text/javascript" src="../Js/Scheduling_javascript.js"></script>
+
     <style type="text/css">
         .auto-style1 {
             width: 611px;
@@ -67,8 +71,10 @@
 		</td>
 		</tr>
 		</table><br>
-            <asp:Label ID="StartTimeError" runat="server" Text="" CssClass="startTimeError"></asp:Label>
-            <asp:Label ID="EndTimeError" runat="server" Text="" CssClass="endTimeError"></asp:Label>
+            <asp:Label ID="StartTimeError" runat="server" Text="" CssClass="errorMessage"></asp:Label>
+            <asp:Label ID="EndTimeError" runat="server" Text="" CssClass="errorMessage"></asp:Label>
+            <asp:Label ID="InsertError" runat="server" Text="" CssClass="errorMessage"></asp:Label>
+            <asp:Label ID="UpdateError" runat="server" Text="" CssClass="errorMessage"></asp:Label>
 		<table border="1">
 			<colgroup span="1" class="tableHeading"></colgroup>
 			<colgroup span="1" class="tableContent"></colgroup>
@@ -122,6 +128,8 @@
                         <% } %>
                     <% } %>
 				</select>
+                <!-- datepicker -->
+                    <input type="button" name="startDatepicker" value="Cal" class="datepicker_btn"/>
 				<!-- 開始時 -->
 				<select name="startOclock">
                         <option value="未設定">未設定</option>
@@ -198,6 +206,8 @@
                         <% } %>
                     <% } %>
 				</select>
+                    <!-- datepicker -->
+                    <input type="button" name="endDatepicker" value="Cal" class="datepicker_btn"/>
 				<!-- 終了時 -->
 				<select name="endOclock">
                     <option value="未設定">未設定</option>
@@ -236,7 +246,8 @@
 			<tr>
 				<th>タイトル<span style="color:red">※</span></th>
 				<td class="auto-style1">
-                    <input type="text" name="title" value="<%= existingTitle %>" maxlength="50" />
+                    <input type="text" name="title" value="<%= existingTitle %>"   class="title_textbox" />
+                    <span class="title_length" style="color:red"></span>
                 </td>
 			</tr>
 
@@ -245,19 +256,19 @@
 				<td class="auto-style1">
 					
 				    <span class="radio_01"> <input type="radio"
-										name="titleColor" checked="checked" value="0">
+										name="titleColor" checked="checked" value="1">
 							</span> <label for="titleColor_01" class="titleColor_text">訪問</label>
                     <span class="radio_02"> <input type="radio"
-										name="titleColor" value="1">
+										name="titleColor" value="2">
 							</span> <label for="titleColor_02" class="titleColor_text">勤怠</label>
                     <span class="radio_03"> <input type="radio"
-										name="titleColor"  value="2">
+										name="titleColor"  value="3">
 							</span> <label for="titleColor_03" class="titleColor_text">来客</label>
                     <span class="radio_04"> <input type="radio"
-										name="titleColor"  value="3">
+										name="titleColor"  value="4">
 							</span> <label for="titleColor_04" class="titleColor_text">面談・面接</label>
                     <span class="radio_05"> <input type="radio"
-										name="titleColor"  value="4">
+										name="titleColor"  value="5">
 							</span> <label for="titleColor_05" class="titleColor_text">私用</label>
 					
 				</td>
@@ -266,24 +277,25 @@
 			<tr>
 				<th class="auto-style5">内容</th>
 				<td class="auto-style6">
-                    <textarea name="description" rows="8" cols="50" maxlength="1000"><%= existingDescription %></textarea>
+                    <textarea name="description" rows="8" cols="50" class="textarea_description"><%= existingDescription %></textarea>
                     <br>
-					MAX1000文字</td>
+					MAX1000文字<span class="description_length" style="color:red"></span>
+				</td>
 			</tr>
 
 			<tr>
 				<th class="auto-style8">備考</th>
 				<td class="auto-style9">
-                    <textarea name="note" rows="8" cols="50" maxlength="1000"><%= existingNote %></textarea>
+                    <textarea name="note" rows="8" cols="50" class="textarea_note"><%= existingNote %></textarea>
                     <br>
-					MAX1000文字</td>
+					MAX1000文字 <span class="note_length" style="color:red"></span>
+				</td>
 			</tr>
 
 			<tr>
 				<th class="auto-style3">登録者</th>
 				<td class="auto-style4">
                     <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
-                    <asp:LinqDataSource ID="LinqDataSource1" runat="server"></asp:LinqDataSource>
                 </td>
 			</tr>
 

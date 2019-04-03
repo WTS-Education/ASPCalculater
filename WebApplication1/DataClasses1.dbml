@@ -17,6 +17,8 @@
       <Column Name="DELETE_DATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="DELETE_USER" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="DELETE_FLG" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Association Name="M_User_M_TITLE_COLOR" Member="M_TITLE_COLOR" ThisKey="USER_ID" OtherKey="INSERT_USER" Type="M_TITLE_COLOR" />
+      <Association Name="M_User_T_SCHEDULE" Member="T_SCHEDULE" ThisKey="USER_ID" OtherKey="INSERT_USER" Type="T_SCHEDULE" />
     </Type>
   </Table>
   <Table Name="dbo.T_SCHEDULE" Member="T_SCHEDULE">
@@ -37,6 +39,24 @@
       <Column Name="DELETE_DATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="DELETE_USER" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="DELETE_FLG" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Association Name="M_TITLE_COLOR_T_SCHEDULE" Member="M_TITLE_COLOR" ThisKey="TITLE_COLOR" OtherKey="TITLE_COLOR_ID" Type="M_TITLE_COLOR" IsForeignKey="true" />
+      <Association Name="M_User_T_SCHEDULE" Member="M_User" ThisKey="INSERT_USER" OtherKey="USER_ID" Type="M_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.M_TITLE_COLOR" Member="M_TITLE_COLOR">
+    <Type Name="M_TITLE_COLOR">
+      <Column Name="TITLE_COLOR_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TITLE_COLOR_TAG" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="TITLE_COLOR_CODE" Type="System.String" DbType="Char(7) NOT NULL" CanBeNull="false" />
+      <Column Name="INSERT_DATE" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="INSERT_USER" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UPDATE_DATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UPDATE_USER" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DELETE_DATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DELETE_USER" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DELETE_FLG" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Association Name="M_TITLE_COLOR_T_SCHEDULE" Member="T_SCHEDULE" ThisKey="TITLE_COLOR_ID" OtherKey="TITLE_COLOR" Type="T_SCHEDULE" />
+      <Association Name="M_User_M_TITLE_COLOR" Member="M_User" ThisKey="INSERT_USER" OtherKey="USER_ID" Type="M_User" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
