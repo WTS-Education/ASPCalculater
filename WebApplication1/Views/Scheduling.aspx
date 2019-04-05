@@ -8,42 +8,10 @@
     <title>スケジュール</title>
     <link href="../Contents/css/scheduling_style.css"
 	type="text/css" rel="stylesheet" />
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <link href="../Contents/css/jquery-ui.min.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="../Js/jquery1.12.4.js"></script>
+    <script type="text/javascript" src="../Js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="../Js/Scheduling_javascript.js"></script>
-
-    <style type="text/css">
-        .auto-style1 {
-            width: 611px;
-        }
-        .auto-style2 {
-            width: 690px;
-        }
-        .auto-style3 {
-            height: 37px;
-        }
-        .auto-style4 {
-            width: 611px;
-            height: 37px;
-        }
-        .auto-style5 {
-            height: 157px;
-        }
-        .auto-style6 {
-            width: 611px;
-            height: 157px;
-        }
-        .auto-style7 {
-            margin-top: 0px;
-        }
-        .auto-style8 {
-            height: 164px;
-        }
-        .auto-style9 {
-            width: 611px;
-            height: 164px;
-        }
-    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -75,7 +43,7 @@
             <asp:Label ID="EndTimeError" runat="server" Text="" CssClass="errorMessage"></asp:Label>
             <asp:Label ID="InsertError" runat="server" Text="" CssClass="errorMessage"></asp:Label>
             <asp:Label ID="UpdateError" runat="server" Text="" CssClass="errorMessage"></asp:Label>
-		<table border="1">
+		<table border="1" class="scheduleTable">
 			<colgroup span="1" class="tableHeading"></colgroup>
 			<colgroup span="1" class="tableContent"></colgroup>
 			<tr>
@@ -89,7 +57,7 @@
 				<th class="key">開始<span style="color:red">※</span></th>
 				<td class="auto-style1">
 				<!-- 開始年 -->
-				<select name="startYear">
+				<select name="startYear"  class="startYear">
                     <% int[] yearAndMonth = (int[])Session["yearAndMonth"]; %>                    
                     <% for (int year = 2018; year <= 2022; year++) { %>
                         <% if (scheduleId != null && year == existingStartTime[0])
@@ -103,7 +71,7 @@
                     <% } %>
 				</select>
 				<!-- 開始月 -->
-				<select name="startMonth">
+				<select name="startMonth" class="startMonth">
                     <% for (int month = 1; month <= 12; month++) { %> 
                         <% if (scheduleId != null && month == existingStartTime[1])
                             { %>
@@ -116,7 +84,7 @@
                     <% } %>
 				</select>
 				<!-- 開始日 -->
-				<select name="startDay">
+				<select name="startDay" class="startDay">
                     <% for (int day = 1; day <= yearAndMonth[2]; day++) { %>
                         <% if (scheduleId != null && day == existingStartTime[2])
                             { %>
@@ -129,7 +97,7 @@
                     <% } %>
 				</select>
                 <!-- datepicker -->
-                    <input type="button" name="startDatepicker" value="Cal" class="datepicker_btn"/>
+                    <input type="button" name="startDatepicker" value="Cal" class="startDatepicker_btn"/>
 				<!-- 開始時 -->
 				<select name="startOclock">
                         <option value="未設定">未設定</option>
@@ -168,7 +136,7 @@
 				<th>終了<span style="color:red">※</span></th>
 				<td class="auto-style1">
 				<!-- 終了年 -->
-				<select name="endYear">
+				<select name="endYear" class="endYear">
                     <% for (int year = 2018; year <= 2022; year++) { %>
                         <% if (scheduleId != null && year == existingEndTime[0])
                             { %>
@@ -181,7 +149,7 @@
                     <% } %>
 				</select>
 				<!-- 終了月 -->
-				<select name="endMonth">
+				<select name="endMonth" class="endMonth">
                     <% for (int month = 1; month <= 12; month++) { %> 
                         <% if (scheduleId != null && month == existingEndTime[1])
                             { %>
@@ -194,7 +162,7 @@
                     <% } %>
 				</select>
 				<!-- 終了日 -->
-				<select name="endDay">
+				<select name="endDay" class="endDay">
                     <% for (int day = 1; day <= yearAndMonth[2]; day++) { %>
                         <% if (scheduleId != null && day == existingEndTime[2])
                             { %>
@@ -206,9 +174,9 @@
                         <% } %>
                     <% } %>
 				</select>
-                    <!-- datepicker -->
-                    <input type="button" name="endDatepicker" value="Cal" class="datepicker_btn"/>
-				<!-- 終了時 -->
+                <!-- datepicker -->
+                <input type="button" name="endDatepicker" value="Cal" class="endDatepicker_btn"/>
+			    <!-- 終了時 -->
 				<select name="endOclock">
                     <option value="未設定">未設定</option>
                     <%for (int endOclock = 0; endOclock <= 23; endOclock++) { %>
@@ -292,11 +260,46 @@
 				</td>
 			</tr>
 
+            <tr class="configAtSameTimeLine">
+                <th class="auto-style10">同時登録</th>
+                <td class="configAtSameTime" style="height: 111px">
+                [他のユーザへも同じ登録が出来ます]
+                <br />
+                    <table style="height: 150px;border-color:white;" class="configAtSameTimeTable">
+                        <tr>
+                        <td style="width:260px;" class="configAtSameTime">
+                            宛先<br />
+                            <select multiple="multiple" style="width:250px">
+                                <option></option>
+                                
+                            </select>
+                        </td>
+                        <td style="width:70px;" class="configAtSameTime">
+                            <br />
+                            <button class="insertMember">追加</button>
+                            <br />
+                            <br />
+                            <button class="deleteMember">削除</button>
+                        </td>
+                        <td style="width:260px;" class="configAtSameTime">
+                            <br />
+                            <select multiple="multiple" style="width:250px">
+                                <option>テスト1</option>
+                                <option>テスト2</option>
+                                <option>テスト3</option>
+                            </select>
+                        </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
 			<tr>
 				<th class="auto-style3">登録者</th>
 				<td class="auto-style4">
                     <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
                 </td>
+                
 			</tr>
 
 		</table>
