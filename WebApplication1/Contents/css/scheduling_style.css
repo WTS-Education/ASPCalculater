@@ -19,23 +19,21 @@ span.title_string {
 
 table {
     border-collapse: collapse;
-    border: 2px;
     width: 70%;
     height: 500px;
-    cellspacing: 0px;
     table-layout: fixed;
-}
-
-table:not([class="configAtSameTimeTable"]) {
-    border: 1px solid black;
 }
 
 th {
     border: 1px solid black;
 }
 
-td:not([class="configAtSameTime"]) {
-    border: 1px solid black;
+table.configAtSameTimeTable{
+    border:none;
+}
+
+td.configAtSameTime {
+    border:none;
 }
 
 colgroup.tableHeading {
@@ -168,7 +166,7 @@ label.title_color_text {
     font-size: 85%;
 }
 
-td.configAtSameTime {
+/*td.configAtSameTime {
     text-align: left;
     background-color: #FFFFFF;
     border: 1px;
@@ -183,6 +181,10 @@ tr.configAtSameTimeLine {
     display: table-row;
     vertical-align: inherit;
     border-color: inherit;
+}*/
+
+span.configAtSameTimeMessage{
+    color:red;
 }
 
 button.insertMember {

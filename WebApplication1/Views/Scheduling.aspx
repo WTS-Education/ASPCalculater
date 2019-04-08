@@ -263,30 +263,28 @@
             <tr class="configAtSameTimeLine">
                 <th class="auto-style10">同時登録</th>
                 <td class="configAtSameTime" style="height: 111px">
-                [他のユーザへも同じ登録が出来ます]
                 <br />
-                    <table style="height: 150px;border-color:white;" class="configAtSameTimeTable">
+                <span class="configAtSameTimeMessage">[他のユーザへも同じ登録が出来ます]</span>
+                    <table style="height: 100px;border-color:white;" class="configAtSameTimeTable">
                         <tr>
                         <td style="width:260px;" class="configAtSameTime">
                             宛先<br />
-                            <select multiple="multiple" style="width:250px">
-                                <option></option>
-                                
+                            <select multiple="multiple" style="width:250px" class="selectedMembersList">
                             </select>
                         </td>
                         <td style="width:70px;" class="configAtSameTime">
                             <br />
-                            <button class="insertMember">追加</button>
+                            <button type="button" class="insertMember">追加</button>
                             <br />
                             <br />
-                            <button class="deleteMember">削除</button>
+                            <button type="button" class="deleteMember">削除</button>
                         </td>
                         <td style="width:260px;" class="configAtSameTime">
                             <br />
-                            <select multiple="multiple" style="width:250px">
-                                <option>テスト1</option>
-                                <option>テスト2</option>
-                                <option>テスト3</option>
+                            <select multiple="multiple" style="width:250px" class="membersList">
+                                <% foreach (KeyValuePair<int, string> user in userMap) { %>
+                                    <option value="<%= user.Key %>"><%= user.Value %></option>
+                                <% } %>
                             </select>
                         </td>
                         </tr>

@@ -50,7 +50,68 @@
             $(".note_length").text("1000文字以内で入力してください");
         }
     });
+
+    //同時登録
+    //$(".insertMember").on("click", function () {
+    //    var selectedMember = $(".membersList").val();
+    //        //$(".selectedMembersList").append($("<option>").val(value).text(value));
+    //        $('.selectedMembersList').append($('<option>').attr({ value: value }).text(value));
+    //});
+    $(".insertMember").on("click", function () {
+        move(".membersList option:selected", ".selectedMembersList");
+        //$(".membersList option:selected").each(function () {
+        //    $(".selectedMembersList").append($(".membersList option:selected").clone());
+        //    $(".membersList option:selected").remove();
+        //});
+    });
+
+    $(".deleteMember").on("click", function () {
+        move(".selectedMembersList option:selected", ".membersList");
+        //$(".selectedMembersList option:selected").each(function () {
+        //    $(".membersList").append($(".selectedMembersList option:selected").clone());
+        //    $(".selectedMembersList option:selected").remove();
+        //});
+    });
+    //var membersList = $(".membersList").children();
+    var move = function (from, to) {
+        $(to).append($(from).clone());
+        $(from).remove();
+        var item = $(to).children().sort(function (a, b) {
+            var sortA = a.value;
+            var sortB = b.value;
+            return sortA - sortB;
+        });
+        $(to).html(item);
+    };
 });
+
+//if (sortA > sortB) {
+//    return 1;
+//} else if (sortA < sortB) {
+//    return -1;
+//} else {
+//    return 0;
+//}
+
+//var fromId = $(from).val();
+//if ($(to).val() != null) {
+//    var toId = $(to).val();
+//    toId = $.merge(toId, fromId);
+//    alert("hello");
+//    alert(toId);
+//} else {
+//    alert($(from).val());
+//    $(from).each(function () {
+//        $(to).append($(from).clone());
+//    });
+//}
+
+//$.each(membersList, function (index, value) {
+//    if (membersList.eq(index).val() == from.val()) {
+//        var i = index;
+//        $(to).before($(from).clone());
+//    }
+//})
 
 //if ($(".startYear").val() == selectedYear) {
         //    alert($(".startYear").val());

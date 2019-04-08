@@ -21,12 +21,16 @@ namespace WebApplication1
         public int existingTitleColor;
         public string existingDescription;
         public string existingNote;
-        
+
+        public IDictionary<int, string> userMap = new Dictionary<int, string>();
+
         /**
          *  ページ読み込み時
          **/
         protected void Page_Load(object sender, EventArgs e)
         {
+            var db = new DataClasses1DataContext(ConfigurationManager.ConnectionStrings["connection"].ToString());
+
             //スケジュール登録ボタン押下→日付取得→取得した日付で開始日時・終了日時表示
             if (Request["day"] != null)
             {
@@ -38,7 +42,6 @@ namespace WebApplication1
                 scheduleId = int.Parse(Request["id"]);
 
                 //既存スケジュール検索
-                var db = new DataClasses1DataContext(ConfigurationManager.ConnectionStrings["connection"].ToString());
                 var allSchedule = from schedule in db.T_SCHEDULE
                                   where schedule.SCHEDULE_ID == scheduleId
                                   select schedule;
@@ -114,7 +117,16 @@ namespace WebApplication1
 
             Label1.Text = (string)Session["userName"];
             Label2.Text = (string)Session["userName"];
-            
+
+            //同時登録ユーザ検索
+            var allUser = from user in db.M_User
+                          select user;
+            foreach(var user in allUser)
+            {
+                int userId = user.USER_ID;
+                string userName = user.USER_NAME;
+                userMap.Add(userId, userName);
+            }
         }
         /**
          * 戻るボタン押下時
